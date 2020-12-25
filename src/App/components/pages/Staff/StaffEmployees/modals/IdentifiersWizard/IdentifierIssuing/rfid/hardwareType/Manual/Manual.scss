@@ -1,0 +1,17 @@
+@import '../../../../../../../../../../../assets/styles/utils/mixin';
+
+.manual {
+    &__title {
+        flex: 1 100%;
+        margin-bottom: calc(#{$indent-md} * 2);
+    }
+
+    &__body {
+        flex: 1 100%;
+        display: flex;
+
+        &>*:nth-child(n):not(:last-child):not(:only-child) {
+            margin-right: 35px;
+        }
+    }
+}

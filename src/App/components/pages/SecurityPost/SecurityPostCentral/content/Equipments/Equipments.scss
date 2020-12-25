@@ -1,0 +1,17 @@
+@import '../../../../../../../assets/styles/utils/mixin';
+
+.equipments {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    justify-items: center;
+    padding: $indent-md 0 0 $indent-md;
+    transition: $transition;
+    z-index: 2;
+
+    i {
+        flex: 1 0 299px;
+        max-width: 299px;
+        margin-right: $indent-md;
+    }
+}

@@ -1,0 +1,199 @@
+@import '../../../../../../../../assets/styles/utils/mixin';
+
+.employee-schedule {
+    width: 630px;
+    height: 316px;
+    display: flex;
+    flex-direction: column;
+    margin-top: $indent-lg;
+
+    &>*:nth-child(n):not(:last-child):not(:only-child) {
+        margin-bottom: calc(#{$indent-md} * 2);
+    }
+
+    &__table {
+        flex: 1 100%;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+
+        .schedule-table__header {
+            display: flex;
+            padding: $indent-sm 0;
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    border-bottom: 2px solid map-get($map, borderColor);
+                }
+            }
+
+            .header-item {
+                flex: 1 100%;
+                display: flex;
+
+                &:first-child {
+                    max-width: 50px;
+                }
+
+                &>* {
+                    @each $theme, $map in $themes {
+                        .#{$theme} & {
+                            color: map-get($map, brandPantonSubText);
+                        }
+                    }
+                }
+
+                svg {
+                    width: 9px;
+                    margin-left: 3px;
+                    cursor: pointer;
+                    @each $theme, $map in $themes {
+                        .#{$theme} & {
+                            fill: map-get($map, brandPantonSubText);
+                        }
+                    }
+                }
+
+                .title-prompt {
+                    display: flex;
+                    position: relative;
+
+                    svg {
+                        width: 9px;
+                        margin-left: 3px;
+                        cursor: pointer;
+                        @each $theme, $map in $themes {
+                            .#{$theme} & {
+                                fill: map-get($map, brandPantonSubText);
+                            }
+                        }
+                    }
+
+                    &__description {
+                        width: 180px;
+                        position: absolute;
+                        top: calc(100% + 10px);
+                        left: calc(-180px / 2 + 9px);
+                        padding: $indent-md;
+                        border-radius: 8px;
+                        visibility: hidden;
+                        opacity: 0;
+                        transition: $transition;
+                        font-size: 10px;
+                        line-height: 14px;
+                        z-index: 2;
+                        @each $theme, $map in $themes {
+                            .#{$theme} & {
+                                background-color: map-get($map, white);
+                                color: map-get($map, brandPantonText);
+                                box-shadow: 0px 10px 10px transparentize(map-get($map, brandPantonText), 0.9);
+                                border: 1px solid map-get($map, brandBackground);
+                            }
+                        }
+
+                        &::before {
+                            content: '';
+                            width: $indent-md;
+                            height: $indent-md;
+                            position: absolute;
+                            top: -$indent-sm - 1px;
+                            left: calc(50% - #{$indent-sm});
+                            transform: rotate(-135deg);
+                            border-radius: 0 0 3px 0;
+                            z-index: 1;
+                            @each $theme, $map in $themes {
+                                .#{$theme} & {
+                                    background-color: map-get($map, white);
+                                    border-right: 1px solid map-get($map, brandBackground);
+                                    border-bottom: 1px solid map-get($map, brandBackground);
+                                }
+                            }
+                        }
+                    }
+
+                    &:hover {
+                        .title-prompt__description {
+                            visibility: visible;
+                            opacity: 1;
+                        }
+                    }
+                }
+
+                &:last-child {
+                    .title-prompt {
+                        &__description {
+                            left: unset;
+                            right: -6px;
+                            border-radius: 8px 0 8px 8px;
+
+                            &::before {
+                                left: unset;
+                                right: 3px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        .schedule-table__body {
+            flex: 1 100%;
+            overflow: hidden;
+
+            &-items {
+                display: flex;
+                flex-direction: column;
+
+                .table-body__item {
+                    display: flex;
+
+                    &>* {
+                        flex: 1 100%;
+                        display: flex;
+
+                        &:first-child {
+                            max-width: 50px;
+                        }
+                    }
+
+                    .duration {
+                        display: flex;
+                        flex-direction: column;
+
+                        &>*:nth-child(n):not(:last-child):not(:only-child) {
+                            margin-bottom: $indent-sm;
+                        }
+                    }
+
+                    &.day-of {
+                        &>* {
+                            display: flex;
+                            @each $theme, $map in $themes {
+                                .#{$theme} & {
+                                    color: map-get($map, brandPantonRed);
+                                }
+                            }
+
+                            svg {
+                                width: 12px;
+                                margin-right: $indent-sm;
+                                @each $theme, $map in $themes {
+                                    .#{$theme} & {
+                                        fill: map-get($map, brandPantonRed);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &>*:first-child {
+                    margin-top: $indent-lg;
+                }
+
+                &>*:nth-child(n):not(:last-child):not(:only-child) {
+                    margin-bottom: $indent-lg;
+                }
+            }
+        }
+    }
+}

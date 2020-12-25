@@ -1,0 +1,57 @@
+@import '../../../../../../../../assets/styles/utils/mixin';
+
+.access-points-modules {
+    display: flex;
+    flex-direction: column;
+
+    &>*:nth-child(n):not(:last-child):not(:only-child) {
+        margin-bottom: $indent-md;
+    }
+
+    &__header {
+        display: flex;
+        flex-direction: column;
+
+        &>*:nth-child(n):not(:last-child):not(:only-child) {
+            margin-bottom: $indent-md;
+        }
+
+        &-title {}
+
+        &-settings {
+            display: flex;
+            padding: $indent-md 0;
+            align-items: flex-end;
+
+            &>*:nth-child(n):not(:last-child):not(:only-child) {
+                margin-right: $indent-md;
+            }
+
+            &>*:nth-child(1) {
+                width: 220px;
+            }
+
+            &>*:nth-child(2) {
+                width: 380px;
+            }
+        }
+    }
+
+    &__body {
+        flex: 1 100%;
+        border-top: 2px solid;
+        overflow: hidden;
+        @each $theme, $map in $themes {
+            .#{$theme} & {
+                border-color: map-get($map, borderColor);
+            }
+        }
+
+        &-empty {
+            margin: 28px 0;
+            &>* {
+                line-height: 25px !important;
+            }
+        }
+    }
+}

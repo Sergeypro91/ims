@@ -1,0 +1,7 @@
+@import '../../../../../../../../assets/styles/utils/mixin';
+
+.identifiers-rfid-filters-status {
+    &>*:not(:last-child):not(:only-child) {
+        margin-bottom: $indent-md;
+    }
+}

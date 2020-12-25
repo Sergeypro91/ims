@@ -1,0 +1,21 @@
+@import '../../../../../../../../../assets/styles/utils/mixin';
+
+.employee-twod-accordion {
+    display: flex;
+
+    &>*:nth-child(n):not(:only-child):not(:last-child) {
+        margin-right: 42px;
+    }
+
+    &>* {
+        flex: 1;
+    }
+
+    .twod-accordion {
+        &__left {
+            &>*:nth-child(n):not(:only-child):not(:last-child) {
+                margin-bottom: $indent-md;
+            }
+        }
+    }
+}

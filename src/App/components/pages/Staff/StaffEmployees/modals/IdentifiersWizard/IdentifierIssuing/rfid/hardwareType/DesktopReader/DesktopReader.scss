@@ -1,0 +1,35 @@
+@import '../../../../../../../../../../../assets/styles/utils/mixin';
+
+.desktop-reader {
+    &__title {
+        margin-bottom: calc(#{$indent-md} * 2);
+    }
+
+    &__body {
+        display: flex;
+
+        &>*:first-child {
+            margin-right: calc(#{$indent-md} * 2);
+        }
+
+        .desktop-reader-body {
+            &__left {
+                min-width: 260px;
+
+                &>*:nth-child(n):not(:last-child):not(:only-child) {
+                    margin-bottom: $indent-md;
+                }
+            }
+
+            &__right {
+                flex: 1 100%;
+                display: flex;
+                flex-direction: column;
+
+                &>*:nth-child(n):not(:last-child):not(:only-child) {
+                    margin-bottom: $indent-md;
+                }
+            }
+        }
+    }
+}

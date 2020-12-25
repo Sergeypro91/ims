@@ -1,0 +1,123 @@
+@import '../../../../assets/styles/utils/mixin';
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    margin: $indent-md 0;
+    border: 1px solid;
+    transition: $transition;
+    @each $theme, $map in $themes {
+        .#{$theme} & {
+            border-color: map-get($map, borderColor);
+            background: map-get($map, white);
+            box-shadow: 0 10px 10px transparentize(map-get($map, black), 0.9);
+        }
+    }
+
+    &__header {
+        width: 100%;
+        display: flex;
+        padding: $indent-sm;
+        z-index: 103;
+        transition: $transition;
+        @each $theme, $map in $themes {
+            .#{$theme} & {
+                background: map-get($map, white);
+            }
+        }
+
+        &-title {
+            height: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+    .custom-button--typical {
+        svg {
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    background: map-get($map, borderColor);
+                }
+            }
+        }
+    }
+
+    &__label {
+        display: flex;
+        align-items: center;
+        margin-top: $indent-md;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        font-weight: 500;
+        @each $theme, $map in $themes {
+            .#{$theme} & {
+                color: map-get($map, brandPantonText);
+            }
+        }
+    }
+
+    &__body {
+        min-width: 370px;
+        flex: 1 100%;
+        flex-direction: column;
+        width: 0;
+        height: 100%;
+        transition: $transition;
+        overflow: hidden;
+    }
+
+    &.shown {
+        min-width: 400px;
+        max-width: 400px;
+
+        .sidebar__header {
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    box-shadow: 0px 10px 10px transparentize(map-get($map, brandPantonText), 0.98);
+                }
+            }
+
+            &-title {
+                flex-direction: row;
+            }
+
+            &-title {
+                path {
+                    fill: white;
+                }
+            }
+
+            &-close {
+                .custom-button--typical {
+                    svg {
+                        @each $theme, $map in $themes {
+                            .#{$theme} & {
+                                background: map-get($map, white);
+                            }
+                        }
+                        border: none;
+                    }
+                }
+            }
+        }
+
+        .sidebar__label {
+            writing-mode: horizontal-tb;
+            text-orientation: mixed;
+            margin: 0 0 0 $indent-md;
+        }
+
+        .sidebar__body {
+            width: 100%;
+            display: flex;
+        }
+    }
+
+    &.hidden {
+        min-width: 50px;
+        max-width: 50px;
+    }
+}

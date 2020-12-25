@@ -1,0 +1,90 @@
+@import '../../../../../../../../assets/styles/utils/mixin';
+
+.access-point-modules {    
+    width: 100%;
+    display: flex;
+    margin-top: $indent-lg;
+
+    &>*:nth-child(n):not(:last-child):not(:only-child) {
+        margin-right: 35px;
+    }
+
+    &__settings {
+        flex: 1 100%;
+        display: flex;
+        flex-direction: column;
+    
+        &>*:nth-child(n):not(:last-child):not(:only-child) {
+            margin-bottom: calc(#{$indent-md} * 2);
+        }
+    
+        &-body {
+            flex: 1 100%;
+            overflow: hidden;
+    
+            .tabbar {
+                &__bar {
+                    border-top: 2px solid;
+                    border-bottom: 2px solid;
+                    @each $theme, $map in $themes {
+                        .#{$theme} & {
+                            border-color: map-get($map, borderColor);
+                        }
+                    }
+                }
+            }
+    
+            .access-sequence {
+                &-enter, &-exit {
+                    height: 100%;
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
+        }
+    
+        .disabled {
+            .tabbar {
+                &__content {
+                    pointer-events: none;
+                }
+            }
+        }
+    }
+    
+    &__description {
+        width: 163px;
+        display: flex;
+        flex-direction: column;
+        padding-top: calc(#{$indent-lg} * 2);
+    
+        &>* {
+            width: 163px;
+            line-height: 22px !important;
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    color: transparentize(map-get($map, brandPantonText), 0.5) !important;
+                }
+            }
+    
+            &::before {
+                content: '';
+                position: relative;
+                display: block;
+                width: 35px;
+                height: 2px;
+                margin-bottom: $indent-md;
+                @each $theme, $map in $themes {
+                    .#{$theme} & {
+                        background: map-get($map, brandPantonBlue);
+                    }
+                }
+            }
+    
+            &:nth-child(n):not(:last-child):not(:only-child) {
+                margin-bottom: 28px;
+            }
+        }
+    }
+}

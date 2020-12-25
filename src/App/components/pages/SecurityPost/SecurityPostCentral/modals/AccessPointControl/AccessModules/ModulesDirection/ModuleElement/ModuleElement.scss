@@ -1,0 +1,29 @@
+@import '../../../../../../../../../../assets/styles/utils/mixin';
+
+.module-element {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $indent-md $indent-md $indent-md 0;
+    border-bottom: 2px solid;
+    transition: $transition;
+    @each $theme, $map in $themes {
+        .#{$theme} & {
+            border-color: map-get($map, borderColor);
+        }
+    }
+
+    &>*:nth-child(n):not(:last-child):not(:only-child) {
+        margin-right: $indent-lg;
+    }
+
+    &__name {
+        flex: 1 100%;
+
+        &.inactive {
+            &>* {
+                opacity: 0.2;
+            }
+        }
+    }
+}

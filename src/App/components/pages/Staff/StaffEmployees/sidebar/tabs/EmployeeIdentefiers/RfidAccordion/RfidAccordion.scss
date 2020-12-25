@@ -1,0 +1,10 @@
+@import '../../../../../../../../../assets/styles/utils/mixin';
+
+.rfid-accordion {
+    display: flex;
+    flex-direction: column;
+
+    &>*:nth-child(n):not(:last-child):not(:only-child) {
+        margin-bottom: calc(#{$indent-md} * 2);
+    }
+}

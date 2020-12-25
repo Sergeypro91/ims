@@ -1,0 +1,73 @@
+@import "../../../../../../../assets/styles/utils/mixin";
+
+.identifiers-qr-history {
+    padding: $indent-lg $indent-md;
+
+    .identifiers-history {
+        &__head {
+            margin-bottom: $indent-md;
+
+            &-date {
+                display: flex;
+                align-items: center;
+
+                &::before {
+                    content: "";
+                    display: block;
+                    width: $indent-sm;
+                    height: $indent-sm;
+                    margin-right: $indent-sm;
+                    border-radius: 50%;
+                    @each $theme, $map in $themes {
+                        .#{$theme} & {
+                            background: map-get($map, brandPantonSubText);
+                        }
+                    }
+                }
+                
+                &>* {
+                    @each $theme, $map in $themes {
+                        .#{$theme} & {
+                            color: map-get($map, brandPantonSubText);
+                        }
+                    }
+                }
+            }
+        }
+
+        &__body {
+            display: flex;
+            flex-direction: column;
+            margin-left: $indent-md;
+            padding: $indent-md $indent-lg;
+            border-radius: 5px;
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    background: map-get($map, brandBackground);
+                }
+            }
+
+            & > *:not(:last-child):not(:only-child) {
+                margin-bottom: $indent-md;
+            }
+        }
+
+        &--active {
+                .identifiers-history__head {
+                    &-date {
+                        &::before {
+                            @each $theme, $map in $themes {
+                                .#{$theme} & {
+                                    background: map-get($map, brandPantonBlue);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+        &:not(:last-child):not(:only-child) {
+            margin-bottom: $indent-lg;
+        }
+    }
+}

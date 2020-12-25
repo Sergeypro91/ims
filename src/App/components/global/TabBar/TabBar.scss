@@ -1,0 +1,229 @@
+@import '../../../../assets/styles/utils/mixin';
+
+.tabbar {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    .tabbar-bar {
+        min-height: 50px;
+        display: flex;
+        transition: $transition;
+        overflow: hidden;
+        z-index: 2;
+        @each $theme, $map in $themes {
+            .#{$theme} & {
+                background: map-get($map, white);
+                box-shadow: 0px 10px 10px transparentize(map-get($map, brandPantonText), 0.98);
+            }
+        }
+
+        &__lef-button,
+        &__right-button {
+            width: $indent-lg;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            transition: $transition;
+            cursor: pointer;
+            animation: button-appiring 0.25s linear forwards;
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    fill: map-get($map, black);
+                }
+            }
+
+            svg {
+                width: $indent-lg;
+                height: $indent-lg;
+            }
+
+            &:hover {
+                @each $theme, $map in $themes {
+                    .#{$theme} & {
+                        fill: map-get($map, brandPantonBlue);
+                    }
+                }
+            }
+
+            &--disable {
+                pointer-events: none;
+                opacity: 0.5;
+                animation: button-disappiring 0.25s linear forwards;
+                margin: 0 $indent-sm;
+            }
+        }
+
+        &__lef-button {
+            z-index: 2;
+
+            &:after {
+                content: '';
+                width: $indent-lg;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                right: -100%;
+                pointer-events: none;
+                @each $theme, $map in $themes {
+                    .#{$theme} & {
+                        background: linear-gradient(90deg, map-get($map, white) 20%, transparentize(map-get($map, white), 1) 100%);
+                    }
+                }
+            }
+        }
+
+        &__right-button {
+            transform: rotate(180deg);
+            z-index: 2;
+
+            &:after {
+                content: '';
+                width: $indent-lg;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                right: -100%;
+                pointer-events: none;
+                @each $theme, $map in $themes {
+                    .#{$theme} & {
+                        background: linear-gradient(90deg, map-get($map, white) 20%, transparentize(map-get($map, white), 1) 100%);
+                    }
+                }
+            }
+        }
+
+        &__tabs {
+            width: 100%;
+            padding: $indent-sm 0;
+            display: flex;
+            align-items: center;
+            position: relative;
+            transition: $transition;
+            overflow: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            z-index: 1;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
+            &-item {
+                height: 100%;
+                margin-left: $indent-md;
+                padding: 0 $indent-md;
+                cursor: pointer;
+
+                &--active > * {
+                    font-weight: 500;
+                    @each $theme, $map in $themes {
+                        .#{$theme} & {
+                            color: map-get($map, brandPantonBlue);
+                        }
+                    }
+                }
+
+                &.focus-visible {
+                    @each $theme, $map in $themes {
+                        .#{$theme} & {
+                            box-shadow: 0 0 0 0.2rem map-get($map, brandFocus);
+                        }
+                    }
+                }
+
+                &:first-of-type {
+                    margin-left: 0;
+                }
+
+                & > * {
+                    white-space: nowrap;
+                    overflow: hidden;
+                }
+            }
+
+            &-marcker {
+                height: 2px;
+                position: absolute;
+                bottom: 0;
+                transition: all 0.125s linear;
+                @each $theme, $map in $themes {
+                    .#{$theme} & {
+                        background: map-get($map, brandPantonBlue);
+                    }
+                }
+
+                &--animation {
+                    left: 14px;
+                    animation: tabbar-anim 0.125s linear forwards;
+                }
+            }
+        }
+
+        &-tabs {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            transition: $transition;
+            z-index: 1;
+        }
+
+        & > *:only-child {
+            margin: 0 $indent-md;
+        }
+    }
+
+    &__content {
+        flex: 1 100%;
+        overflow: auto;
+        z-index: 1;
+
+        & > * {
+            animation: tabOpenAnim 0.25s forwards;
+        }
+    }
+}
+
+@keyframes tabbar-anim {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes button-appiring {
+    0% {
+        opacity: 0;
+        width: 0;
+    }
+    100% {
+        opacity: 1;
+        width: $indent-lg;
+    }
+}
+
+@keyframes button-disappiring {
+    0% {
+        opacity: 1;
+        width: $indent-lg;
+    }
+    100% {
+        opacity: 0;
+        width: 0;
+    }
+}
+
+@keyframes tabOpenAnim {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

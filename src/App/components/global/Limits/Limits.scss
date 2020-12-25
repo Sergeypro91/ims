@@ -1,0 +1,29 @@
+@import "../../../../assets/styles/utils/mixin";
+
+.limits {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    &>*:nth-child(n):not(:last-child):not(:only-child) {
+        margin-right: $indent-md;
+    }
+
+    &__time,
+    &__pass {
+        width: 155px;
+
+        &>*:nth-child(n):not(:last-child):not(:only-child) {
+            margin-bottom: $indent-sm;
+        }
+    }
+
+    .limits__time>*,
+    .limits__pass>* {
+        @each $theme, $map in $themes {
+            .#{$theme} & {
+                color: map-get($map, brandPantonSubText);
+            }
+        }
+    }
+}

@@ -1,0 +1,9 @@
+@import "../../../../../../assets/styles/utils/mixin";
+
+.monitoring-post {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}

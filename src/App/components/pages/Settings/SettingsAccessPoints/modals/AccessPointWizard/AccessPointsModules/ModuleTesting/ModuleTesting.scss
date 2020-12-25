@@ -1,0 +1,14 @@
+@import '../../../../../../../../../assets/styles/utils/mixin';
+
+.module-testing {
+    display: flex;
+    align-items: center;
+
+    &>*:nth-child(n):not(:last-child):not(:only-child) {
+        margin-right: $indent-md;
+    }
+
+    &__descript {
+        flex: 1 100%;
+    }
+}
