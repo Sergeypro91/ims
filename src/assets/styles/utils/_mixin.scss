@@ -1,5 +1,4 @@
 @import './variables';
-@import './fonts';
 
 @mixin responsive($breakpoint) {
     @if $breakpoint == notebook {
@@ -23,8 +22,8 @@
 }
 
 @mixin _font-family {
-    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, 'Noto Sans',
-        sans-serif;
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial,
+        'Noto Sans', sans-serif;
 }
 
 @mixin _p--sm {

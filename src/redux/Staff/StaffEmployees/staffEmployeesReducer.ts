@@ -1,200 +1,65 @@
 import {
-    StaffEmployeesState,
-    StaffEmployeesActions,
-    GET_STAFF_EMPLOYEES,
-    STAFF_EMPLOYEES_SELECTED_ROW,
-    STAFF_EMPLOYEES_TOGGLE_SIDEBAR,
-    STAFF_EMPLOYEES_TOGGLE_BAR,
-    STAFF_EMPLOYEES_QUICK_FILTER,
-    STAFF_EMPLOYEES_SETUP_WIZARD_TYPE,
-    STAFF_EMPLOYEES_SETUP_WIZARD_KEY,
-    STAFF_EMPLOYEES_SETUP_WIZARD_PHOTO,
-    STAFF_EMPLOYEES_SETUP_WIZARD_QR,
-    STAFF_EMPLOYEES_SETUP_WIZARD_ACCES_ZONES,
-    STAFF_EMPLOYEES_SETUP_WIZARD_LIMIT_TIME_IS_ON,
-    STAFF_EMPLOYEES_SETUP_WIZARD_LIMIT_PASS_IS_ON,
-    STAFF_EMPLOYEES_SETUP_WIZARD_LIMIT_TIME_FROM,
-    STAFF_EMPLOYEES_SETUP_WIZARD_LIMIT_TIME_TO,
-    STAFF_EMPLOYEES_SETUP_WIZARD_LIMIT_PASS,
-    STAFF_EMPLOYEES_SETUP_WIZARD_CLOSE
+    StaffEmployeesPageState,
+    StaffEmployeesPageActions,
+    SE_SET_EMPLOYEES,
+    SE_SET_EXTENDED_EMPLOYEE,
+    SE_SET_SELECTED_ROW,
+    SE_TOGGLE_IS_SIDEBAR_OPENED,
+    SE_TOGGLE_IS_FILTER_OPENED,
+    SE_TOGGLE_IS_QUICK_FILTER_ACTIVE,
+    SE_TOGGLE_IS_DELETED_DISPLAYED
 } from './staffEmployeesTypes';
 
-const initialState: StaffEmployeesState = {
-    employeesTable: [],
+const initialState: StaffEmployeesPageState = {
+    employees: [],
+    extendedEmployee: null,
     selectedRow: null,
-    sidebarOpened: false,
-    toggleBar: false,
-    quickFilter: false,
-    identifiersWizard: {
-        type: '',
-        key: '',
-        photo: null,
-        qr: null,
-        accesZones: [],
-        limits: {
-            limitTimeIsOn: true,
-            limitPassIsOn: true,
-            limitTime: {
-                limitTimeFrom: '',
-                limitTimeTo: ''
-            },
-            limitPass: ''
-        }
-    }
+    isSidebarOpened: false,
+    isFilterOpened: false,
+    isQuickFilterActive: false,
+    isDeletedDisplayed: false
 };
 
-const StaffEmployees = (state = initialState, action: StaffEmployeesActions): StaffEmployeesState => {
+const staffEmployeesPageReducer = (state = initialState, action: StaffEmployeesPageActions): StaffEmployeesPageState => {
     switch (action.type) {
-        case GET_STAFF_EMPLOYEES:
+        case SE_SET_EMPLOYEES:
             return {
                 ...state,
-                employeesTable: action.payload
+                employees: action.payload
             };
-        case STAFF_EMPLOYEES_SELECTED_ROW:
+        case SE_SET_EXTENDED_EMPLOYEE:
+            return {
+                ...state,
+                extendedEmployee: action.payload
+            };
+        case SE_SET_SELECTED_ROW:
             return {
                 ...state,
                 selectedRow: action.payload
             };
-        case STAFF_EMPLOYEES_TOGGLE_SIDEBAR:
+        case SE_TOGGLE_IS_SIDEBAR_OPENED:
             return {
                 ...state,
-                sidebarOpened: !state.sidebarOpened
+                isSidebarOpened: !state.isSidebarOpened
             };
-        case STAFF_EMPLOYEES_TOGGLE_BAR:
+        case SE_TOGGLE_IS_FILTER_OPENED:
             return {
                 ...state,
-                toggleBar: !state.toggleBar
+                isFilterOpened: !state.isFilterOpened
             };
-        case STAFF_EMPLOYEES_QUICK_FILTER:
+        case SE_TOGGLE_IS_QUICK_FILTER_ACTIVE:
             return {
                 ...state,
-                quickFilter: !state.quickFilter
+                isQuickFilterActive: !state.isQuickFilterActive
             };
-        case STAFF_EMPLOYEES_SETUP_WIZARD_TYPE:
+        case SE_TOGGLE_IS_DELETED_DISPLAYED:
             return {
                 ...state,
-                identifiersWizard: {
-                    ...state.identifiersWizard,
-                    type: action.payload
-                }
-            };
-        case STAFF_EMPLOYEES_SETUP_WIZARD_KEY:
-            return {
-                ...state,
-                identifiersWizard: {
-                    ...state.identifiersWizard,
-                    key: action.payload
-                }
-            };
-        case STAFF_EMPLOYEES_SETUP_WIZARD_PHOTO:
-            return {
-                ...state,
-                identifiersWizard: {
-                    ...state.identifiersWizard,
-                    photo: action.payload
-                }
-            };
-        case STAFF_EMPLOYEES_SETUP_WIZARD_QR:
-            return {
-                ...state,
-                identifiersWizard: {
-                    ...state.identifiersWizard,
-                    qr: action.payload
-                }
-            };
-        case STAFF_EMPLOYEES_SETUP_WIZARD_ACCES_ZONES:
-            return {
-                ...state,
-                identifiersWizard: {
-                    ...state.identifiersWizard,
-                    accesZones: action.payload
-                }
-            };
-        case STAFF_EMPLOYEES_SETUP_WIZARD_LIMIT_TIME_IS_ON:
-            return {
-                ...state,
-                identifiersWizard: {
-                    ...state.identifiersWizard,
-                    limits: {
-                        ...state.identifiersWizard.limits,
-                        limitTimeIsOn: !state.identifiersWizard.limits.limitTimeIsOn
-                    }
-                }
-            };
-        case STAFF_EMPLOYEES_SETUP_WIZARD_LIMIT_PASS_IS_ON:
-            return {
-                ...state,
-                identifiersWizard: {
-                    ...state.identifiersWizard,
-                    limits: {
-                        ...state.identifiersWizard.limits,
-                        limitPassIsOn: !state.identifiersWizard.limits.limitPassIsOn
-                    }
-                }
-            };
-        case STAFF_EMPLOYEES_SETUP_WIZARD_LIMIT_TIME_FROM:
-            return {
-                ...state,
-                identifiersWizard: {
-                    ...state.identifiersWizard,
-                    limits: {
-                        ...state.identifiersWizard.limits,
-                        limitTime: {
-                            ...state.identifiersWizard.limits.limitTime,
-                            limitTimeFrom: action.payload
-                        }
-                    }
-                }
-            };
-        case STAFF_EMPLOYEES_SETUP_WIZARD_LIMIT_TIME_TO:
-            return {
-                ...state,
-                identifiersWizard: {
-                    ...state.identifiersWizard,
-                    limits: {
-                        ...state.identifiersWizard.limits,
-                        limitTime: {
-                            ...state.identifiersWizard.limits.limitTime,
-                            limitTimeTo: action.payload
-                        }
-                    }
-                }
-            };
-        case STAFF_EMPLOYEES_SETUP_WIZARD_LIMIT_PASS:
-            return {
-                ...state,
-                identifiersWizard: {
-                    ...state.identifiersWizard,
-                    limits: {
-                        ...state.identifiersWizard.limits,
-                        limitPass: action.payload
-                    }
-                }
-            };
-        case STAFF_EMPLOYEES_SETUP_WIZARD_CLOSE:
-            return {
-                ...state,
-                identifiersWizard: {
-                    ...state.identifiersWizard,
-                    type: '',
-                    key: '',
-                    photo: null,
-                    qr: null,
-                    accesZones: [],
-                    limits: {
-                        limitTimeIsOn: true,
-                        limitPassIsOn: true,
-                        limitTime: {
-                            limitTimeFrom: '',
-                            limitTimeTo: ''
-                        },
-                        limitPass: ''
-                    }
-                }
+                isDeletedDisplayed: !state.isDeletedDisplayed
             };
         default:
             return state;
     }
 };
 
-export default StaffEmployees;
+export default staffEmployeesPageReducer;

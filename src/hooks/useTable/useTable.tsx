@@ -19,44 +19,55 @@ export const useTable = (tableState: any) => {
 
     // Table navigation with keyboard
     const onKeyDown = (ev: KeyboardEvent): any => {
-        if (ev.code === 'Delete') {
-            if (selectedRow) {
-                history.push(`${window.location.pathname}/delete`);
+        const url = window.location.pathname;
+        if (!url.includes('add') && !url.includes('edit') && !url.includes('delete') && !url.includes('wizard')) {
+            if (ev.code === 'Delete') {
+                if (document.activeElement?.localName !== 'input') {
+                    if (selectedRow) {
+                        history.push(`${window.location.pathname}/delete`);
+                    }
+                }
             }
-        }
 
-        // Table navigation with keyboard
-        const trackedKeys = ['ArrowUp', 'ArrowDown', 'Enter'];
-        const evWithKey = trackedKeys.includes(ev.key);
+            // Table navigation with keyboard
+            const trackedKeys = ['ArrowUp', 'ArrowDown', 'Enter'];
+            const evWithKey = trackedKeys.includes(ev.key);
 
-        if (evWithKey) {
-            if (firstKeyDown.current === false && ev.key === 'ArrowUp' && rowNumber.current === 0) {
-                rowNumber.current = 1;
-                setSelectedRow(tableState[rowNumber.current]);
+            if (evWithKey) {
+                if (firstKeyDown.current === false && ev.key === 'ArrowUp' && rowNumber.current === 0) {
+                    rowNumber.current = 1;
+                    setSelectedRow(tableState[rowNumber.current]);
+                }
+                if (rowNumber.current < 0) {
+                    rowNumber.current = 0;
+                    firstKeyDown.current = true;
+                }
+                if (rowNumber.current >= tableState.length - 2 && ev.key === 'ArrowDown') {
+                    rowNumber.current = tableState.length - 2;
+                    setSelectedRow(tableState[rowNumber.current - 2]);
+                    firstKeyDown.current = false;
+                }
+                if (firstKeyDown.current === false && ev.key === 'ArrowDown') {
+                    rowNumber.current++;
+                    setSelectedRow(tableState[rowNumber.current]);
+                }
+                if (firstKeyDown.current === false && ev.key === 'ArrowUp') {
+                    rowNumber.current--;
+                    setSelectedRow(tableState[rowNumber.current]);
+                }
+                if (ev.key === 'Enter') {
+                    if (document.activeElement?.localName !== 'input') {
+                        history.push(`${window.location.pathname}/edit`);
+                    }
+                }
+                if (firstKeyDown.current === true && ev.key === 'ArrowDown') {
+                    firstKeyDown.current = false;
+                    setSelectedRow(tableState[0]);
+                }
             }
-            if (rowNumber.current < 0) {
-                rowNumber.current = 0;
-                firstKeyDown.current = true;
-            }
-            if (rowNumber.current >= tableState.length - 2 && ev.key === 'ArrowDown') {
-                rowNumber.current = tableState.length - 2;
-                setSelectedRow(tableState[rowNumber.current - 2]);
-                firstKeyDown.current = false;
-            }
-            if (firstKeyDown.current === false && ev.key === 'ArrowDown') {
-                rowNumber.current++;
-                setSelectedRow(tableState[rowNumber.current]);
-            }
-            if (firstKeyDown.current === false && ev.key === 'ArrowUp') {
-                rowNumber.current--;
-                setSelectedRow(tableState[rowNumber.current]);
-            }
+        } else {
             if (ev.key === 'Enter') {
-                history.push(`${window.location.pathname}/edit`);
-            }
-            if (firstKeyDown.current === true && ev.key === 'ArrowDown') {
-                firstKeyDown.current = false;
-                setSelectedRow(tableState[0]);
+                ev.preventDefault();
             }
         }
     };
@@ -102,22 +113,11 @@ export const useTable = (tableState: any) => {
             typeof tableElement.current?.querySelector('.p-datatable-header')?.clientHeight !== 'undefined'
                 ? tableElement.current?.querySelector('.p-datatable-header')?.clientHeight
                 : 0;
-        const tableScrollableHeader = tableElement.current?.querySelector('.p-datatable-scrollable-header')
-            ?.clientHeight;
+        const tableScrollableHeader = tableElement.current?.querySelector('.p-datatable-scrollable-header')?.clientHeight;
         const scrollHeight = tableElement.current?.clientHeight! - (tableHeader! + tableScrollableHeader! + 3);
 
-        tableElement.current
-            ?.querySelector('.p-datatable-scrollable-body')
-            ?.setAttribute('style', `max-height:${scrollHeight}px;`);
+        tableElement.current?.querySelector('.p-datatable-scrollable-body')?.setAttribute('style', `max-height:${scrollHeight}px;`);
     };
 
-    return [
-        selectionChangeHandler,
-        onKeyDown,
-        rowNumberHandler,
-        goToRowElement,
-        tableScrolleHeight,
-        selectedRow,
-        rowNumber
-    ] as const;
+    return [selectionChangeHandler, onKeyDown, rowNumberHandler, goToRowElement, tableScrolleHeight, selectedRow, rowNumber] as const;
 };

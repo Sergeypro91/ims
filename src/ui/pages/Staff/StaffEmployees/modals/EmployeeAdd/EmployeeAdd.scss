@@ -1,0 +1,203 @@
+@import '~assets/styles/utils/mixin';
+
+.employee-add {
+    width: 630px;
+    display: flex;
+    flex-direction: column;
+    margin-top: $indent-lg;
+
+    .info__row {
+        display: flex;
+
+        &:nth-child(n):not(:last-child):not(:only-child) {
+            margin-bottom: 4px;
+        }
+
+        & > *:nth-child(n):not(:last-child):not(:only-child) {
+            margin-right: $indent-md;
+        }
+
+        & > *:nth-child(n):not(:first-child) {
+            .custom-input {
+                &__label {
+                    &-title {
+                        min-width: 65px;
+                    }
+                }
+            }
+        }
+    }
+
+    .custom-input {
+        flex-direction: row;
+
+        &__label {
+            margin-right: $indent-sm;
+            &-title {
+                min-width: 90px;
+                display: flex;
+                align-items: center;
+                margin: 0;
+
+                & > * {
+                    white-space: nowrap;
+                }
+            }
+        }
+
+        &__wrapper {
+            flex: 1 100%;
+        }
+    }
+
+    &__body {
+        display: flex;
+
+        .user-image {
+            .edit__photo {
+                width: 110px;
+                height: 150px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                margin-right: $indent-md;
+                @each $theme, $map in $themes {
+                    .#{$theme} & {
+                        background: transparentize(map-get($map, black), 0.8);
+                    }
+                }
+
+                svg {
+                    width: 100%;
+                }
+
+                .image-menu {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    padding: $indent-md;
+                    visibility: hidden;
+                    transition: $transition;
+                    opacity: 0;
+                    @each $theme, $map in $themes {
+                        .#{$theme} & {
+                            background: transparentize(map-get($map, black), 0.5);
+                        }
+                    }
+
+                    &__button {
+                        cursor: pointer;
+                        margin-bottom: $indent-lg;
+
+                        & > * {
+                            @each $theme, $map in $themes {
+                                .#{$theme} & {
+                                    color: map-get($map, white);
+                                }
+                            }
+                        }
+                    }
+
+                    &__activator {
+                        width: 34px;
+                        height: 34px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        position: absolute;
+                        bottom: -$indent-sm;
+                        right: $indent-sm;
+                        border-radius: 50%;
+                        transition: $transition;
+                        cursor: pointer;
+                        @each $theme, $map in $themes {
+                            .#{$theme} & {
+                                background: map-get($map, white);
+                                box-shadow: 0 5px 10px transparentize(map-get($map, black), 0.9);
+                            }
+                        }
+
+                        svg {
+                            width: 14px;
+                            transition: $transition;
+                            @each $theme, $map in $themes {
+                                .#{$theme} & {
+                                    fill: map-get($map, brandPantonBlue);
+                                }
+                            }
+                        }
+
+                        &:active {
+                            @each $theme, $map in $themes {
+                                .#{$theme} & {
+                                    background: map-get($map, brandPantonBlue);
+                                }
+                            }
+                        }
+                    }
+
+                    &.open {
+                        visibility: visible;
+                        opacity: 1;
+
+                        & + .image-menu__activator {
+                            @each $theme, $map in $themes {
+                                .#{$theme} & {
+                                    background: map-get($map, brandPantonBlue);
+                                }
+                            }
+
+                            svg {
+                                @each $theme, $map in $themes {
+                                    .#{$theme} & {
+                                        fill: map-get($map, white);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .user-info {
+            flex: 1 100%;
+        }
+    }
+
+    & > *:nth-child(n):not(:last-child):not(:only-child) {
+        padding-bottom: $indent-lg;
+        margin-bottom: $indent-lg;
+        @each $theme, $map in $themes {
+            .#{$theme} & {
+                border-bottom: 2px solid map-get($map, borderColor);
+            }
+        }
+    }
+
+    &__footer {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    svg {
+        padding: 14px;
+    }
+}

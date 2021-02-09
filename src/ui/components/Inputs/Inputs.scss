@@ -1,0 +1,258 @@
+@import '~assets/styles/utils/mixin';
+
+$input-height: 34px;
+
+.custom-input {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    &__label {
+        display: flex;
+        justify-content: space-between;
+
+        &-title {
+            margin-bottom: $indent-sm;
+            & > * {
+                @each $theme, $map in $themes {
+                    .#{$theme} & {
+                        color: map-get($map, brandPantonSubText) !important;
+                    }
+                }
+            }
+        }
+
+        &-required > * {
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    color: map-get($map, brandPantonRed) !important;
+                }
+            }
+        }
+    }
+
+    &__wrapper {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        position: relative;
+        border: 1px solid;
+        border-radius: 5px;
+        transition: $transition;
+        @each $theme, $map in $themes {
+            .#{$theme} & {
+                border-color: map-get($map, brandInputBorder);
+            }
+        }
+
+        &:hover {
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    border-color: map-get($map, brandPantonBlue);
+                }
+            }
+        }
+
+        &:focus-within {
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    border-color: map-get($map, brandPantonText);
+                }
+            }
+        }
+
+        &:hover,
+        &:focus-within {
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    box-shadow: 0 3px 5px 2px map-get($map, brandBoxShadow);
+                }
+            }
+        }
+
+        &--valid {
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    border-color: map-get($map, brandPantonGreen);
+                }
+            }
+        }
+
+        &--invalid {
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    border-color: map-get($map, brandPantonRed);
+                }
+            }
+        }
+    }
+
+    &__icon {
+        width: $input-height;
+        height: $input-height;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: $input-height;
+
+        svg {
+            width: 20px;
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    fill: map-get($map, brandPantonText);
+                }
+            }
+        }
+    }
+
+    &__input-wrapper {
+        flex: 1;
+        width: 100%;
+        height: $input-height;
+        display: flex;
+        align-items: center;
+        padding: 0 $indent-md;
+        border-radius: 5px;
+        transition: $transition;
+        @each $theme, $map in $themes {
+            .#{$theme} & {
+                background: map-get($map, white);
+            }
+        }
+
+        .custom-input__input {
+            width: 100%;
+            height: 100%;
+
+            &::-webkit-calendar-picker-indicator {
+                opacity: 0;
+                cursor: pointer;
+            }
+        }
+    }
+
+    &__specific-action {
+        width: 16px;
+        height: 16px;
+        position: absolute;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: $indent-md;
+        cursor: pointer;
+
+        svg {
+            width: 100%;
+            transition: $transition;
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    fill: map-get($map, brandPantonText);
+                }
+            }
+        }
+
+        &--date {
+            pointer-events: none;
+        }
+
+        &--search {
+            svg {
+                @each $theme, $map in $themes {
+                    .#{$theme} & {
+                        fill: transparentize(map-get($map, brandPantonText), 0.6);
+                    }
+                }
+            }
+
+            &:hover {
+                svg {
+                    @each $theme, $map in $themes {
+                        .#{$theme} & {
+                            fill: map-get($map, brandPantonText);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &--error {
+        animation: errorBounce 0.5s forwards;
+
+        .custom-input__wrapper {
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    border-color: map-get($map, brandPantonRed);
+                }
+            }
+        }
+    }
+
+    &--disabled {
+        opacity: 0.5;
+
+        .custom-input__wrapper {
+            &:hover,
+            &:focus-within {
+                box-shadow: none;
+                @each $theme, $map in $themes {
+                    .#{$theme} & {
+                        border-color: map-get($map, brandInputBorder);
+                    }
+                }
+            }
+
+            input {
+                cursor: not-allowed;
+            }
+        }
+    }
+
+    &__select {
+        width: 100%;
+        height: 100%;
+    }
+
+    &.textarea {
+        flex: 1 100%;
+
+        .custom-input__wrapper {
+            flex: 1 100%;
+
+            .custom-input__input-wrapper {
+                display: flex;
+                height: 100%;
+            }
+
+            textarea {
+                width: 100%;
+                height: 100%;
+                padding: $indent-md 0;
+            }
+        }
+    }
+}
+
+@keyframes errorBounce {
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}

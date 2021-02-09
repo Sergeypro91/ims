@@ -31,9 +31,18 @@ const securityPostCentralReducer = (
                 devices: action.payload
             };
         case SECURITY_POST_CENTRAL_SELECT_DEVICE:
+            const findIndexFunc = (arr: any[], index: any) => {
+                
+                return arr.findIndex((elem) => {
+                    const searchingElem = arr.find((elem) => elem.uuid === index);
+                    
+                    return elem === searchingElem;
+                });
+            };
+
             return {
                 ...state,
-                selectedDevice: action.payload
+                selectedDevice: state.devices[findIndexFunc(state.devices, action.payload)]
             };
         case SECURITY_POST_CENTRAL_CLEAR_DEVICES:
             return {

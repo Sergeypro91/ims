@@ -1,0 +1,462 @@
+@import '~assets/styles/utils/mixin';
+
+.custom-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border-radius: $border-rad_10;
+    transition: $transition;
+    cursor: pointer;
+
+    .prompt {
+        min-width: 100%;
+        max-width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: transparent;
+        pointer-events: none;
+        border-radius: $border-rad_10;
+        transition: $transition;
+        overflow: hidden;
+
+        & > * {
+            min-width: 150px;
+            padding: 0 $indent-sm;
+            opacity: 0;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            transition: $transition;
+        }
+
+        &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            width: 0px;
+            height: 0px;
+            border-radius: 50%;
+            transition: $transition;
+            opacity: 0;
+            z-index: 3;
+        }
+    }
+
+    svg {
+        width: calc(100% - 2px);
+        height: calc(100% - 2px);
+        position: relative;
+        padding: $indent-sm;
+        border-radius: $border-rad_10;
+        transition: $transition;
+    }
+
+    .buttons__label {
+        & > * {
+            user-select: none;
+        }
+    }
+
+    /* SIZE */
+    &--square-sm {
+        width: 32px;
+        min-width: 32px;
+        height: 32px;
+    }
+
+    &--square-m {
+        width: 36px;
+        min-width: 36px;
+        height: 36px;
+    }
+
+    &--square-lg {
+        width: 48px;
+        min-width: 48px;
+        height: 48px;
+    }
+
+    /* HOVER */
+    &:hover:not(&--disable):not(&--custom) {
+        transform: scale(1.2);
+        z-index: 100;
+
+        .prompt {
+            max-width: 200px;
+
+            & > * {
+                min-width: 150px;
+                padding: 0 calc(36px + #{$indent-sm}) 0 $indent-sm;
+                opacity: 1;
+            }
+
+            & > *:empty {
+                padding: 0;
+                display: none;
+            }
+        }
+    }
+
+    /* TYPICAL */
+    &--typical {
+        svg {
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    fill: map-get($map, brandPantonText);
+                    background: map-get($map, white);
+                }
+            }
+        }
+
+        .prompt:after {
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    background: map-get($map, brandPantonBlue);
+                }
+            }
+        }
+
+        &:hover {
+            svg {
+                @each $theme, $map in $themes {
+                    .#{$theme} & {
+                        box-shadow: 0px 10px 10px map-get($map, brandBoxShadow);
+                    }
+                }
+            }
+
+            .prompt {
+                @each $theme, $map in $themes {
+                    .#{$theme} & {
+                        border: 1px solid map-get($map, brandPantonBlue);
+                        background: map-get($map, white);
+                    }
+                }
+            }
+        }
+
+        &:active {
+            .prompt:after {
+                width: 200px;
+                height: 200px;
+                background: transparent !important;
+                opacity: 1;
+            }
+        }
+    }
+
+    &--typical.custom-button--custom {
+        @each $theme, $map in $themes {
+            .#{$theme} & {
+                background: map-get($map, white);
+                border: 2px solid map-get($map, brandPantonBlue);
+            }
+        }
+
+        svg {
+            background: none;
+        }
+
+        .buttons__label > * {
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    color: map-get($map, brandPantonBlue);
+                }
+            }
+        }
+
+        &:hover {
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    box-shadow: 0 5px 4px 0 rgba(map-get($map, brandPantonBlue), 0.35);
+                }
+            }
+
+            svg {
+                box-shadow: none;
+            }
+
+            .prompt {
+                border: none;
+                background: none;
+            }
+        }
+    }
+
+    /* CUSTOM */
+    &--custom {
+        width: 128px;
+        height: 36px;
+        @each $theme, $map in $themes {
+            .#{$theme} & {
+                background: map-get($map, white);
+            }
+        }
+
+        svg {
+            max-width: 34px;
+            height: 34px;
+            background: transparent;
+            box-shadow: none;
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    fill: map-get($map, brandPantonBlue);
+                }
+            }
+        }
+
+        .buttons__label > * {
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .buttons__label {
+            flex: 1 100%;
+            text-align: start;
+            padding: 0 $indent-sm;
+        }
+    }
+
+    /* ACTIVE */
+    &--active {
+        .prompt:after {
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    background: map-get($map, white);
+                }
+            }
+        }
+
+        &:hover {
+            .prompt {
+                border: none;
+            }
+        }
+    }
+
+    &--active:not(&--danger):not(&--disable):not(&--custom) {
+        svg {
+            fill: white;
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    background: map-get($map, brandPantonBlue);
+                }
+            }
+
+            & > path {
+                fill: white;
+                @each $theme, $map in $themes {
+                    .#{$theme} & {
+                        background: map-get($map, brandPantonBlue);
+                    }
+                }
+            }
+        }
+
+        &:hover {
+            svg {
+                @each $theme, $map in $themes {
+                    .#{$theme} & {
+                        background: lighten(map-get($map, brandPantonBlue), 10%);
+                        box-shadow: 0px 10px 10px rgba(map-get($map, brandPantonBlue), 0.2);
+                    }
+                }
+            }
+        }
+
+        .buttons__label > * {
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    color: $white;
+                }
+            }
+        }
+    }
+
+    &--active.custom-button--typical:not(&--danger) {
+        &:hover {
+            .prompt:empty {
+                border: none;
+                background: none;
+            }
+        }
+    }
+
+    &--active.custom-button--typical.custom-button--custom {
+        border: none;
+        @each $theme, $map in $themes {
+            .#{$theme} & {
+                background: map-get($map, brandPantonBlue);
+            }
+        }
+
+        svg {
+            fill: $white;
+        }
+
+        .buttons__label > * {
+            color: $white;
+        }
+
+        &:hover {
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    background: lighten(map-get($map, brandPantonBlue), 10%);
+                }
+            }
+        }
+    }
+
+    /* DANGER */
+    &--danger:not(&--active) {
+        @each $theme, $map in $themes {
+            .#{$theme} & {
+                border-color: map-get($map, brandPantonRed);
+            }
+        }
+        .prompt:after {
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    background: map-get($map, brandPantonRed);
+                }
+            }
+        }
+
+        svg {
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    fill: map-get($map, brandPantonRed);
+                    background: map-get($map, white);
+                }
+            }
+        }
+
+        .buttons__label {
+            & > * {
+                @each $theme, $map in $themes {
+                    .#{$theme} & {
+                        color: map-get($map, brandPantonRed);
+                    }
+                }
+            }
+        }
+    }
+
+    &--danger:not(&--custom) {
+        &:hover {
+            transform: scale(1.2);
+
+            svg {
+                @each $theme, $map in $themes {
+                    .#{$theme} & {
+                        box-shadow: 0px 10px 10px rgba(map-get($map, brandPantonRed), 0.2);
+                    }
+                }
+            }
+
+            .prompt {
+                @each $theme, $map in $themes {
+                    .#{$theme} & {
+                        border: 1px solid map-get($map, brandPantonRed);
+                    }
+                }
+            }
+        }
+    }
+
+    &--danger.custom-button--custom {
+        &:hover {
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    box-shadow: 0 5px 4px 0 rgba(map-get($map, brandPantonRed), 0.35);
+                }
+            }
+        }
+    }
+
+    &--active.custom-button--danger {
+        svg {
+            fill: $white;
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    background: map-get($map, brandPantonRed);
+                }
+            }
+        }
+    }
+
+    /* DISABLE */
+    &--disable {
+        opacity: 0.5;
+        cursor: not-allowed;
+
+        svg {
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    fill: map-get($map, brandPantonText);
+                    background: map-get($map, white);
+                }
+            }
+        }
+    }
+
+    &--disable.custom-button--custom {
+        @each $theme, $map in $themes {
+            .#{$theme} & {
+                background: darken(map-get($map, brandPantonBlue), 10%);
+            }
+        }
+
+        svg {
+            fill: $white;
+            background: transparent;
+        }
+
+        .buttons__label > * {
+            color: $white;
+        }
+
+        &:hover {
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    background: darken(map-get($map, brandPantonBlue), 10%);
+                }
+            }
+        }
+    }
+
+    &--disable.custom-button--typical.custom-button--custom {
+        @each $theme, $map in $themes {
+            .#{$theme} & {
+                background: none;
+            }
+        }
+
+        &:hover {
+            box-shadow: none !important;
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    background: none;
+                }
+            }
+        }
+    }
+
+    /* FOCUS */
+    &.focus-visible {
+        @each $theme, $map in $themes {
+            .#{$theme} & {
+                box-shadow: 0 0 0 0.2rem map-get($map, brandFocus);
+                z-index: 100;
+            }
+        }
+    }
+}

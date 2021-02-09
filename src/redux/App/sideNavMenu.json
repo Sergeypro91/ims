@@ -10,11 +10,11 @@
     {
         "linkName": "Учебное заведение - ВУЗ",
         "linkSubLink": [
-            { "sublinkName": "Институты", "sublinkUrl": "/educational-institutions" },
-            { "sublinkName": "Факультеты", "sublinkUrl": "/educational-faculties" },
-            { "sublinkName": "Кафедры", "sublinkUrl": "/educational-departments" },
-            { "sublinkName": "Группы", "sublinkUrl": "/educational-groups" },
-            { "sublinkName": "Учащиеся", "sublinkUrl": "/educational-schedules" }
+            { "sublinkName": "Институты", "sublinkUrl": "/education-institutions" },
+            { "sublinkName": "Факультеты", "sublinkUrl": "/education-faculties" },
+            { "sublinkName": "Кафедры", "sublinkUrl": "/education-departments" },
+            { "sublinkName": "Группы", "sublinkUrl": "/education-groups" },
+            { "sublinkName": "Учащиеся", "sublinkUrl": "/education-students" }
         ]
     },
     {
@@ -30,8 +30,8 @@
         "linkName": "Идентификаторы",
         "linkSubLink": [
             { "sublinkName": "Бесконтактные RFID ключи", "sublinkUrl": "/identifiers-rfid" },
-            { "sublinkName": "Face ID", "sublinkUrl": "/identifiers-face-id" },
-            { "sublinkName": "2D штрих-коды", "sublinkUrl": "/identifiers-qr" }
+            { "sublinkName": "2D штрих-коды", "sublinkUrl": "/identifiers-qr" },
+            { "sublinkName": "Face ID", "sublinkUrl": "/identifiers-face-id" }
         ]
     },
     {
@@ -50,21 +50,6 @@
             { "sublinkName": "Точки доступа", "sublinkUrl": "/settings-access-points" },
             { "sublinkName": "Импорт, экспорт данных", "sublinkUrl": "/import-export" },
             { "sublinkName": "О программе", "sublinkUrl": "/settings-about-program" }
-        ]
-    },
-    {
-        "linkName": "CARDDEX",
-        "linkSubLink": [
-            { "sublinkName": "Задания и заказы", "sublinkUrl": "/tasks-and-orders" },
-            { "sublinkName": "Партнеры", "sublinkUrl": "/partners" },
-            { "sublinkName": "Новости", "sublinkUrl": "/news" },
-            { "sublinkName": "Персональные предложения", "sublinkUrl": "/personal-suggestions" },
-            { "sublinkName": "Каталог продукции", "sublinkUrl": "/product-catalog" },
-            { "sublinkName": "Номенклатура", "sublinkUrl": "/nomenclature" },
-            { "sublinkName": "WEB-приложения", "sublinkUrl": "/web-applications" },
-            { "sublinkName": "Карта продукции", "sublinkUrl": "/product-card" },
-            { "sublinkName": "Сервис", "sublinkUrl": "/service" },
-            { "sublinkName": "Отчеты", "sublinkUrl": "/reports" }
         ]
     }
 ]

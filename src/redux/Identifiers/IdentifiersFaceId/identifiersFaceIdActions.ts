@@ -7,11 +7,14 @@ import {
     GET_IDENTYFIERS_FACE_ID_EVENTS,
     IDENTYFIERS_FACE_ID_SELECTED_ROW,
     IDENTYFIERS_FACE_ID_TOGGLE_SIDEBAR,
-    IDENTYFIERS_FACE_ID_TOGGLE_BAR
+    IDENTYFIERS_FACE_ID_TOGGLE_BAR,
+    IDENTIFIER_PHOTO
 } from './identifiersFaceIdTypes';
-import config from '../../../config/config.json';
+import store from 'redux/store';
 
-export const getIdentifiersFaceIdEvents = (eventsList: IdentifiersFaceIdEvents): IdentifiersFaceIdActions => {
+export const getIdentifiersFaceIdEvents = (
+    eventsList: IdentifiersFaceIdEvents
+): IdentifiersFaceIdActions => {
     return {
         type: GET_IDENTYFIERS_FACE_ID_EVENTS,
         payload: eventsList
@@ -33,9 +36,22 @@ export const identifiersFaceIdToggleBar = (): IdentifiersFaceIdActions => ({
     type: IDENTYFIERS_FACE_ID_TOGGLE_BAR
 });
 
-export const requestIdentifiersFaceIdEvents = () => async (dispatch: Dispatch<IdentifiersFaceIdActions>) => {
+export const identifiersFaceIdPhoto = (
+    payload: string | ArrayBuffer | null
+): IdentifiersFaceIdActions => {
+    return {
+        type: IDENTIFIER_PHOTO,
+        payload
+    };
+};
+
+export const requestIdentifiersFaceIdEvents = () => async (
+    dispatch: Dispatch<IdentifiersFaceIdActions>
+) => {
     try {
-        const res = await axios.get(`${config.apiUrl}monitoring/base/online?count=100`);
+        const res = await axios.get(
+            `${store.getState().app.config.apiUrl}monitoring/base/online?count=100`
+        );
         dispatch(getIdentifiersFaceIdEvents(res.data.list));
     } catch (e) {
         console.log(e.body);

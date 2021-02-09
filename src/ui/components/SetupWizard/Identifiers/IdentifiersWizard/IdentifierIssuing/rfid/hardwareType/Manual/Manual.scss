@@ -1,0 +1,44 @@
+@import '~assets/styles/utils/mixin';
+
+.manual {
+    &__title {
+        flex: 1 100%;
+        margin-bottom: calc(#{$indent-md} * 2);
+    }
+
+    &__body {
+        flex: 1 100%;
+        display: flex;
+        .manual-body {
+            &__left {
+                .key-block {
+                    display: flex;
+                    align-items: flex-end;
+
+                    & > *:nth-child(n):not(:last-child):not(:only-child) {
+                        margin-right: $indent-md;
+                    }
+
+                    .custom-button {
+                        svg {
+                            transition: $transition;
+
+                            @each $theme, $map in $themes {
+                                .#{$theme} & {
+                                    background: map-get($map, brandBackground);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            &__right {
+            }
+        }
+
+        & > *:nth-child(n):not(:last-child):not(:only-child) {
+            margin-right: 35px;
+        }
+    }
+}

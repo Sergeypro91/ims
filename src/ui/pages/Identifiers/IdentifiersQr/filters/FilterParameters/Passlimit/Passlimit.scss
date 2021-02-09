@@ -1,0 +1,16 @@
+@import '~assets/styles/utils/mixin';
+
+.identifiers-rfid-filters-passlimit {
+    & > *:not(:last-child):not(:only-child) {
+        margin-bottom: $indent-md;
+    }
+
+    .filter-group {
+        display: flex;
+        gap: $indent-md;
+    }
+
+    .custom-checkbox {
+        align-items: center;
+    }
+}

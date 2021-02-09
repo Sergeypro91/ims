@@ -1,0 +1,94 @@
+@import '~assets/styles/utils/mixin';
+
+.accordion {
+    &__head {
+        height: 52px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        user-select: none;
+        @each $theme, $map in $themes {
+            .#{$theme} & {
+                border-top: 2px solid map-get($map, borderColor);
+            }
+        }
+
+        & > * {
+            height: 100%;
+        }
+
+        &.simple {
+            cursor: pointer;
+        }
+
+        &-title {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+
+            .checkbox {
+                &__label {
+                    & > * {
+                        font-weight: 500 !important;
+                    }
+                }
+            }
+        }
+
+        .accordion__head-expender {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: $indent-sm;
+            cursor: pointer;
+
+            svg {
+                transition: all 0.2s ease-in-out;
+                transform: rotate(180deg);
+            }
+        }
+
+        &.opened {
+            .accordion__head-expender {
+                svg {
+                    transform: rotate(0);
+                }
+            }
+        }
+    }
+
+    &__body {
+        max-height: 0;
+        margin: 0;
+        transition: $transition;
+        overflow: hidden;
+        @each $theme, $map in $themes {
+            .#{$theme} & {
+                border-top: 0px solid transparent;
+            }
+        }
+
+        &.opened {
+            padding: $indent-lg 0;
+            max-height: 2000px;
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    border-top: 2px solid map-get($map, borderColor);
+                }
+            }
+        }
+
+        & > * {
+            line-height: 20px !important;
+        }
+    }
+
+    &:last-child,
+    &:only-child {
+        @each $theme, $map in $themes {
+            .#{$theme} & {
+                border-bottom: 2px solid map-get($map, borderColor);
+            }
+        }
+    }
+}

@@ -1,0 +1,45 @@
+@import '~assets/styles/utils/mixin';
+
+.acess-point-data-confirmation {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    & > *:nth-child(n):not(:last-child):not(:only-child) {
+        margin-bottom: calc(#{$indent-md} * 2);
+    }
+
+    &__header {
+    }
+
+    &__body {
+        flex: 1 100%;
+        display: flex;
+        flex-wrap: wrap;
+        overflow: hidden;
+
+        &-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+
+            & > *:nth-child(n) {
+                min-width: 50%;
+                max-width: 50%;
+                padding-right: $indent-md;
+
+                &:not(:last-child):not(:only-child) {
+                    margin-bottom: calc(#{$indent-md} * 2);
+                }
+            }
+        }
+    }
+
+    &__footer {
+        display: flex;
+        align-items: flex-end;
+
+        & > *:nth-child(n):not(:last-child):not(:only-child) {
+            margin-right: $indent-lg;
+        }
+    }
+}

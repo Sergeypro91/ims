@@ -1,0 +1,79 @@
+@import '~assets/styles/utils/mixin';
+
+.toast {
+    width: 385px;
+    min-height: 130px;
+    display: flex;
+    align-items: center;
+    padding: 35px;
+    pointer-events: visible;
+    border-radius: $border-rad_10;
+    animation: toastAnim 3s forwards;
+    @each $theme, $map in $themes {
+        .#{$theme} & {
+            background: map-get($map, white);
+            box-shadow: 0 10px 10px transparentize(map-get($map, black), 0.9);
+        }
+    }
+
+    & > *:nth-child(n):not(:last-child):not(:only-child) {
+        margin-right: $indent-md;
+    }
+
+    & > *:nth-child(2) {
+        line-height: 18px;
+    }
+
+    svg {
+        width: 30px;
+    }
+
+    &.warning {
+        svg {
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    fill: map-get($map, brandPantonYellow);
+                }
+            }
+        }
+    }
+
+    &.success {
+        svg {
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    fill: map-get($map, brandPantonGreen);
+                }
+            }
+        }
+    }
+
+    &.error {
+        svg {
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    fill: map-get($map, brandPantonRed);
+                }
+            }
+        }
+    }
+}
+
+@keyframes toastAnim {
+    0% {
+        opacity: 0;
+        transform: translateY(200px);
+    }
+
+    15%,
+    75% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    100% {
+        display: none;
+        opacity: 0;
+        transform: translateX(400px);
+    }
+}

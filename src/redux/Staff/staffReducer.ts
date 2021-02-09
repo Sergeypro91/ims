@@ -1,16 +1,16 @@
 import { combineReducers } from 'redux';
-import StaffDepartments from 'App/../redux/Staff/StaffDepartments/staffDepartmentsReducer';
-import StaffEmployees from 'App/../redux/Staff/StaffEmployees/staffEmployeesReducer';
-import StaffOrganizations from 'App/../redux/Staff/StaffOrganizations/staffOrganizationsReducer';
-import StaffEmployeeTimetableReducer from 'App/../redux/Staff/StaffEmployees/EmployeeTimetable/employeeTimetableReducer';
+import StaffDepartments from 'redux/Staff/StaffDepartments/staffDepartmentsReducer';
+import StaffEmployees from 'redux/Staff/StaffEmployees/staffEmployeesReducer';
+import StaffOrganizations from 'redux/Staff/StaffOrganizations/staffOrganizationsReducer';
 import StaffPositionsReducer from 'redux/Staff/StaffPositions/staffPositionsReducer';
+import StaffNamesReducer from 'redux/Staff/StaffNames/staffNamesReducer';
 
 const StaffReducer = combineReducers({
     staffDepartments: StaffDepartments,
     staffEmployees: StaffEmployees,
     staffOrganizations: StaffOrganizations,
-    staffEmployeeTimetable: StaffEmployeeTimetableReducer,
-    staffPositions: StaffPositionsReducer
+    staffPositions: StaffPositionsReducer,
+    staffNames: StaffNamesReducer
 });
 
 export default StaffReducer;

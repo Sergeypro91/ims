@@ -1,6 +1,6 @@
 @import 'utils/mixin';
 @import 'utils/reset';
-@import 'utils/fonts';
+@import 'fonts';
 
 .colorIcon {
     width: 36px;
@@ -22,6 +22,20 @@
                 border: 1px solid map-get($map, brandPantonBlue);
             }
         }
+    }
+}
+
+.dot {
+    position: absolute;
+    top: 7px;
+    width: 6px;
+    min-width: 6px;
+    height: 6px;
+    min-height: 6px;
+    border-radius: 50%;
+
+    &--red {
+        background-color: $brandPantonRed;
     }
 }
 
@@ -61,6 +75,7 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
     @each $theme, $map in $themes {
         .#{$theme} & {
+            box-shadow: 0 0 0 30px map-get($map, white) inset !important;
             -webkit-box-shadow: 0 0 0 30px map-get($map, white) inset !important;
             -webkit-text-fill-color: map-get($map, brandPantonText) !important;
         }
@@ -231,7 +246,7 @@ input:-webkit-autofill:active {
     background: #55555580;
 }
 
-.table-wrapper {
+.table {
     height: 100%;
     flex: 1;
     display: flex;
@@ -240,7 +255,7 @@ input:-webkit-autofill:active {
     padding: $indent-md;
 }
 
-.table {
+.table__content {
     width: 100%;
     height: 100%;
     display: flex;
@@ -317,7 +332,11 @@ input:-webkit-autofill:active {
         &:hover {
             background: darken($brandPantonBlue, 10%) !important;
             .p-sortable-column-icon {
-                background: linear-gradient(to right, transparentize(($white), 1), darken($brandPantonBlue, 10%));
+                background: linear-gradient(
+                    to right,
+                    transparentize(($white), 1),
+                    darken($brandPantonBlue, 10%)
+                );
             }
         }
     }

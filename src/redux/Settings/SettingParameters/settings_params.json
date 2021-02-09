@@ -1,0 +1,162 @@
+[
+    {
+        "name": "general",
+        "label": "Общие",
+        "options": [
+            {
+                "name": "mainOrganizationName",
+                "label": "Головная организация",
+                "type": "string",
+                "value": "Carddex",
+                "readonly": true
+            },
+            {
+                "name": "timeAttendance",
+                "label": "Система учета рабочего времени",
+                "type": "list",
+                "list": ["Непрерывная", "Дискретная"],
+                "selected": "Непрерывная",
+                "selectedId": 0
+            },
+            {
+                "name": "useZoning",
+                "label": "Использовать зональность территории",
+                "type": "boolean",
+                "condition": false
+            },
+            {
+                "name": "allowAccessZones",
+                "label": "Разрешить доступ в зоны вне расписания",
+                "type": "boolean",
+                "condition": false
+            },
+            {
+                "name": "useEquipmentSchedule",
+                "label": "Использовать расписание работы оборудования",
+                "type": "boolean",
+                "condition": false
+            },
+            {
+                "name": "autogenPersonNumbers",
+                "label": "Автогенерация табельного номера",
+                "type": "boolean",
+                "condition": true
+            },
+            {
+                "name": "personNumberPrefix",
+                "label": "Префикс табельного номера",
+                "type": "string",
+                "value": "",
+                "max": 4,
+                "fontCase": "upperCase"
+            },
+            {
+                "name": "personNumberSignificantDigits",
+                "label": "Количество значимых цифр табельного номера",
+                "type": "number",
+                "value": 6,
+                "min": 4,
+                "max": 8
+            }
+        ]
+    },
+
+    {
+        "name": "identifiers",
+        "label": "Идентификаторы",
+        "options": [
+            {
+                "name": "useType",
+                "label": "Использовать типы идентификаторов",
+                "type": "checkboxList",
+                "list": ["RFID ключи", "2D-штрих коды / QR-коды", "Биометрия - фотография физического лица"],
+                "selectedList": [true, true, false]
+            },
+            {
+                "name": "contactlessType",
+                "label": "Тип бесконтактных ключей",
+                "type": "list",
+                "list": ["EMMarin", "Mifare"],
+                "selected": "EMMarin",
+                "selectedId": 0
+            },
+            {
+                "name": "outputFormat",
+                "label": "Формат вывода номера бесконтактного ключа",
+                "type": "list",
+                "list": ["Десятичный", "Шестнадцатеричный"],
+                "selected": "Десятичный",
+                "selectedId": 0
+            },
+            {
+                "name": "significantBytes",
+                "label": "Количество значимых байт номера бесконтактного ключа",
+                "type": "list",
+                "list": ["3 байта - Wiegand-26", "4 байта - Wiegand-34", "7 байт - Wiegand-58"],
+                "selected": "3 байта - Wiegand-26",
+                "selectedId": 0
+            },
+            {
+                "name": "allowMultipleIdentifiersPerUser",
+                "label": "Разрешить несколько идентификаторов на одно физическое лицо",
+                "type": "boolean",
+                "condition": false
+            },
+            {
+                "name": "accessPermissionsForNewIdentifiers",
+                "label": "Разрешения доступа для новых идентификаторов",
+                "type": "list",
+                "list": ["Доступ запрещен везде ", "Доступ разрешен везде", "Доступ по выбору администратора"],
+                "selected": "Доступ запрещен везде ",
+                "selectedId": 0
+            }
+        ]
+    },
+
+    {
+        "name": "verification",
+        "label": "Верификация и синхронизация",
+        "options": [
+            {
+                "name": "decisionMaking",
+                "label": "Принятие решения для ключей, при верификации",
+                "type": "list",
+                "list": ["Доступ запрещен", "Доступ разрешен"],
+                "selected": "Доступ запрещен",
+                "selectedId": 0
+            },
+            {
+                "name": "decisionTimeout",
+                "label": "Таймаут принятия решения, при верификации, в мсек",
+                "type": "number",
+                "value": 2000,
+                "min": 1000,
+                "max": 10000
+            },
+            {
+                "name": "synchronizationInterval",
+                "label": "Интервал синхронизации идентификаторов на точки доступа, в сек",
+                "type": "number",
+                "value": 30,
+                "min": 10,
+                "max": 600
+            },
+            {
+                "name": "sequenceWaitInterval",
+                "label": "Интервал ожидания последовательности идентификаторов",
+                "type": "number",
+                "value": 10000,
+                "min": 2000,
+                "max": 30000
+            },
+            {
+                "name": "eventSynchronizationInterval",
+                "label": "Интервал синхронизации событий из точки доступа",
+                "type": "number",
+                "value": 30000,
+                "min": 10000,
+                "max": 30000
+            }
+        ]
+    }
+]

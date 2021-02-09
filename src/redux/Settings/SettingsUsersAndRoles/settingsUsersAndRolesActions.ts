@@ -8,7 +8,7 @@ import {
     SETTINGS_USERS_AND_ROLES_SELECTED_ROW,
     SETTINGS_USERS_AND_ROLES_TOGGLE_BAR
 } from './settingsUsersAndRolesTypes';
-import config from '../../../config/config.json';
+import store from 'redux/store';
 
 export const getSettingsUsersAndRolesEvents = (
     eventsList: SettingsUsersAndRolesEvents
@@ -19,7 +19,9 @@ export const getSettingsUsersAndRolesEvents = (
     };
 };
 
-export const settingsUsersAndRolesSelectedRow = (payload: TableItem): SettingsUsersAndRolesActions => {
+export const settingsUsersAndRolesSelectedRow = (
+    payload: TableItem
+): SettingsUsersAndRolesActions => {
     return {
         type: SETTINGS_USERS_AND_ROLES_SELECTED_ROW,
         payload
@@ -30,9 +32,13 @@ export const settingsUsersAndRolesToggleBar = (): SettingsUsersAndRolesActions =
     type: SETTINGS_USERS_AND_ROLES_TOGGLE_BAR
 });
 
-export const requestSettingsUsersAndRolesEvents = () => async (dispatch: Dispatch<SettingsUsersAndRolesActions>) => {
+export const requestSettingsUsersAndRolesEvents = () => async (
+    dispatch: Dispatch<SettingsUsersAndRolesActions>
+) => {
     try {
-        const res = await axios.get(`${config.apiUrl}monitoring/base/online?count=100`);
+        const res = await axios.get(
+            `${store.getState().app.config.apiUrl}monitoring/base/online?count=100`
+        );
         dispatch(getSettingsUsersAndRolesEvents(res.data.list));
     } catch (e) {
         console.log(e.body);

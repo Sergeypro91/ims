@@ -1,0 +1,146 @@
+@import '~assets/styles/utils/mixin';
+
+.sidebar {
+    min-width: 400px;
+    max-width: 400px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease-in-out;
+    border: 1px solid;
+    @each $theme, $map in $themes {
+        .#{$theme} & {
+            border-color: map-get($map, borderColor);
+            background: map-get($map, white);
+            box-shadow: 0 10px 10px transparentize(map-get($map, black), 0.9);
+        }
+    }
+
+    &__body {
+        width: 100%;
+        min-width: 370px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        transition: $transition;
+        overflow: hidden;
+    }
+
+    .sidebar-header {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        padding: 7px;
+        align-items: center;
+        @each $theme, $map in $themes {
+            .#{$theme} & {
+                background: map-get($map, white);
+            }
+        }
+
+        &__content {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            svg {
+                @each $theme, $map in $themes {
+                    .#{$theme} & {
+                        background: map-get($map, borderColor);
+                    }
+                }
+            }
+        }
+
+        &__heading {
+            padding-left: 14px;
+            writing-mode: horizontal-rl;
+            text-orientation: mixed;
+            font-weight: 500;
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    color: map-get($map, brandPantonText);
+                }
+            }
+        }
+
+        &__badge {
+            background-color: #fce6e6;
+            border-radius: 15px;
+            margin-right: 10px;
+            width: 100px;
+            height: 28px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            span {
+                font-size: 12px;
+                color: $brandPantonRed;
+                font-weight: 500;
+            }
+        }
+
+        &__close {
+            svg {
+                @each $theme, $map in $themes {
+                    .#{$theme} & {
+                        background: map-get($map, white);
+                    }
+                }
+                border: none;
+            }
+        }
+    }
+
+    &--closed {
+        min-width: 50px;
+        max-width: 50px;
+
+        .sidebar-header {
+            &__content {
+                flex-direction: column;
+            }
+
+            &__heading {
+                padding-left: 0;
+                padding-top: 14px;
+                writing-mode: vertical-rl;
+            }
+
+            &__badge {
+                display: none;
+            }
+        }
+    }
+}
+
+.sidebar__wrapper {
+    margin: 20px;
+}
+
+.sidebar__block {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+
+    .sidebar-block {
+        &__header {
+            font-size: 12px;
+            color: #848484;
+        }
+
+        &__value {
+            color: #293440;
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 7px;
+        }
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}

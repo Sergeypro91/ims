@@ -1,0 +1,146 @@
+@import '~assets/styles/utils/mixin';
+
+.reserve {
+    flex: 1 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    &__title {
+        margin-bottom: $indent-md;
+    }
+
+    &__body {
+        flex: 1 100%;
+        display: flex;
+        overflow: hidden;
+
+        & > *:first-child {
+            margin-right: $indent-lg;
+        }
+
+        .reserve-body {
+            &__left {
+                min-width: 280px;
+
+                .reserve-table {
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    overflow: hidden;
+
+                    @each $theme, $map in $themes {
+                        .#{$theme} & {
+                            border: 1px solid map-get($map, brandBorderColor);
+                        }
+                    }
+
+                    &__header {
+                        display: flex;
+                        align-items: center;
+                        @each $theme, $map in $themes {
+                            .#{$theme} & {
+                                background: map-get($map, borderColor);
+                            }
+                        }
+                    }
+
+                    &__search-box {
+                        width: 100%;
+
+                        .custom-input {
+                            &__wrapper {
+                                border-radius: 0;
+                            }
+
+                            &__input-wrapper {
+                                @each $theme, $map in $themes {
+                                    .#{$theme} & {
+                                        background: map-get($map, borderColor);
+                                    }
+                                }
+
+                                input::placeholder {
+                                    font-size: 12px;
+                                    font-weight: 500;
+                                    font-family: 'Roboto';
+                                    @each $theme, $map in $themes {
+                                        .#{$theme} & {
+                                            color: map-get($map, brandPantonText);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    &__body {
+                        flex: 1 100%;
+                        overflow: auto;
+
+                        &-item {
+                            width: 100%;
+                            height: 32px;
+                            display: flex;
+                            align-items: center;
+                            padding: 0 $indent-md;
+                            transition: $transition;
+                            cursor: pointer;
+
+                            &:hover {
+                                @each $theme, $map in $themes {
+                                    .#{$theme} & {
+                                        background: darken(map-get($map, brandBackground), 10%);
+                                    }
+                                }
+                            }
+
+                            &.focus-visible {
+                                @each $theme, $map in $themes {
+                                    .#{$theme} & {
+                                        background: darken(map-get($map, brandBackground), 10%);
+                                        box-shadow: 0 0 0 0.2rem map-get($map, brandFocus);
+                                        z-index: 100;
+                                    }
+                                }
+                            }
+
+                            &--active {
+                                @each $theme, $map in $themes {
+                                    .#{$theme} & {
+                                        background: map-get($map, brandPantonBlue);
+                                    }
+                                }
+
+                                & > * {
+                                    color: white;
+                                }
+
+                                &:hover {
+                                    @each $theme, $map in $themes {
+                                        .#{$theme} & {
+                                            background: lighten(map-get($map, brandPantonBlue), 10%);
+                                        }
+                                    }
+                                }
+                            }
+
+                            &:nth-child(n):not(:last-child) {
+                                @each $theme, $map in $themes {
+                                    .#{$theme} & {
+                                        border-bottom: 1px solid map-get($map, brandBorderColor);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            &__right {
+                width: 100%;
+                display: flex;
+            }
+        }
+    }
+}

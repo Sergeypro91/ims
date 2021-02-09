@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Dispatch } from 'react';
-import config from 'config/config.json';
+import store from 'redux/store';
 import {
     MonitoringEvents,
     SecurityPostMonitoringActions,
@@ -11,14 +11,18 @@ import {
     SECURITY_POST_MONITORING_SIDE_FILTER
 } from './securityPostMonitoringTypes';
 
-export const getSecurityPostMonitoringEvents = (eventsList: MonitoringEvents): SecurityPostMonitoringActions => {
+export const getSecurityPostMonitoringEvents = (
+    eventsList: MonitoringEvents
+): SecurityPostMonitoringActions => {
     return {
         type: GET_SECURITY_POST_MONITORING_EVENTS,
         payload: eventsList
     };
 };
 
-export const selectSecurityPostMonitoringTableRow = (payload: TableItem): SecurityPostMonitoringActions => {
+export const selectSecurityPostMonitoringTableRow = (
+    payload: TableItem
+): SecurityPostMonitoringActions => {
     return {
         type: SECURITY_POST_MONITORING_TABLE_ROW,
         payload
@@ -33,9 +37,11 @@ export const toggleSecurityPostMonitoringSideFilter = (): SecurityPostMonitoring
     type: SECURITY_POST_MONITORING_SIDE_FILTER
 });
 
-export const requestSecurityPostMonitoringEvents = () => (dispatch: Dispatch<SecurityPostMonitoringActions>) => {
+export const requestSecurityPostMonitoringEvents = () => (
+    dispatch: Dispatch<SecurityPostMonitoringActions>
+) => {
     axios
-        .get(`${config.testApi2}/identificators?limit=100`)
+        .get(`${store.getState().app.config.apiUrl}/devices/events?limit=100`)
         .then((response) => {
             dispatch(getSecurityPostMonitoringEvents(response.data.payload));
         })

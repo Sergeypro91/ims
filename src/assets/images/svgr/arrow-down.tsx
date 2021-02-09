@@ -1,11 +1,20 @@
-import React, { memo } from 'react';
+import React, { FC } from 'react';
 
-const ArrowDownInner = () => {
-    return (
-        <svg viewBox="0 0 24 24">
-            <path d="M16.293 9.293L12 13.586 7.707 9.293 6.293 10.707 12 16.414 17.707 10.707z" />
-        </svg>
-    );
-};
+const ArrowDown: FC<{ className?: string, id?: string }> = (props) => (
+    <svg
+        id={props.id}
+        className={props.className}
+        width="12"
+        height="10"
+        viewBox="0 0 12 10"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+            className={props.className}
+            d="M10.5134 0L6 4.22005L1.48659 0L0 1.38997L6 7L12 1.38997L10.5134 0Z"
+            fill="#828282"
+        />
+    </svg>
+);
 
-export const ArrowDown = memo(ArrowDownInner);
+export default ArrowDown;

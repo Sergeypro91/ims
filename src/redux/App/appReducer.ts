@@ -6,7 +6,6 @@ import {
     SET_WS_STATUS,
     GET_WS_EVENT,
     APP_TOAST_ADD,
-    APP_TOAST_CLEAR,
     GET_SIDE_NAV_MENU,
     APP_HIDE_PROGRESS_BAR,
     APP_SHOW_PROGRESS_BAR,
@@ -15,13 +14,27 @@ import {
     APP_TOGGLE_BOTTOMBAR,
     APP_TOGGLE_BAR,
     APP_DETERM_WINDOW_SIZE,
-    APP_WIZARD_STEP,
-    APP_WIZARD_STEPS,
-    APP_WIZARD_MARCKER_WIDTH,
-    APP_WIZARD_CLOSE
+    APP_TOAST_CLEAR
 } from './appTypes';
+import isDev from 'utils/isDev/isDev';
+import { v4 as uuid } from 'uuid';
+
+console.log(isDev());
 
 const initialState: AppState = {
+    config: {
+        apiUrl: isDev()
+            ? 'http://172.16.3.74:9998/api'
+            : // eslint-disable-next-line
+              `${location.protocol}//${location.hostname}${location.port && `:${location.port}`}/api`,
+        apiWs: isDev()
+            ? 'ws://172.16.3.74:9998/ws'
+            : // eslint-disable-next-line
+              `${location.protocol === 'http:' ? 'ws' : 'wss'}://${location.hostname}${
+                  // eslint-disable-next-line
+                  location.port && `:${location.port}`
+              }/ws`
+    },
     user: {
         login: '',
         password: '',
@@ -43,11 +56,6 @@ const initialState: AppState = {
     windowSize: {
         width: 0,
         height: 0
-    },
-    setupWizard: {
-        stepsCount: 0,
-        currentStep: 0,
-        marckerElemWidth: 0
     }
 };
 
@@ -83,22 +91,12 @@ const appReducer = (state = initialState, action: AppActions): AppState => {
         case APP_TOAST_ADD:
             return {
                 ...state,
-                toasts: [...state.toasts, action.payload]
+                toasts: [...state.toasts, { ...action.payload, id: uuid() }]
             };
         case APP_TOAST_CLEAR:
-            if (state.toasts.length > 1) {
-                const newArr = state.toasts;
-                newArr.shift();
-
-                return {
-                    ...state,
-                    toasts: [...newArr]
-                };
-            }
-
             return {
                 ...state,
-                toasts: []
+                toasts: [...state.toasts.filter((toast) => toast.id !== action.payload)]
             };
         case GET_SIDE_NAV_MENU:
             return {
@@ -144,40 +142,6 @@ const appReducer = (state = initialState, action: AppActions): AppState => {
             return {
                 ...state,
                 windowSize: action.payload
-            };
-        case APP_WIZARD_STEP:
-            return {
-                ...state,
-                setupWizard: {
-                    ...state.setupWizard,
-                    currentStep: action.payload
-                }
-            };
-        case APP_WIZARD_STEPS:
-            return {
-                ...state,
-                setupWizard: {
-                    ...state.setupWizard,
-                    stepsCount: action.payload
-                }
-            };
-        case APP_WIZARD_MARCKER_WIDTH:
-            return {
-                ...state,
-                setupWizard: {
-                    ...state.setupWizard,
-                    marckerElemWidth: action.payload
-                }
-            };
-        case APP_WIZARD_CLOSE:
-            return {
-                ...state,
-                setupWizard: {
-                    ...state.setupWizard,
-                    stepsCount: 0,
-                    currentStep: 0,
-                    marckerElemWidth: 0
-                }
             };
         default:
             return state;

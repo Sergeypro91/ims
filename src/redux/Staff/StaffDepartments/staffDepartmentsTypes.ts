@@ -1,45 +1,51 @@
-export interface Department {
-    _id: string;
-    name: string;
-    organization: string;
-    director: string;
-    createdAt: string;
-    deleted: boolean;
-}
+import { Department, DepartmentsList } from 'api/staff/departments/departments.types';
 
-export type Departments = Array<Department>;
-export interface StaffDepartmentsState {
-    departmentsTable: Departments;
+export interface StaffDepartmentsPageState {
+    departments: DepartmentsList;
     selectedRow: Department | null;
-    sidebarOpened: boolean;
-    toggleBar: boolean;
-    quickFilter: boolean;
+    isSidebarOpened: boolean;
+    isFilterOpened: boolean;
+    isQuickFilterActive: boolean;
+    isDeletedDisplayed: boolean;
 }
 
-export const STAFF_DEPARTMENTS_SELECTED_ROW = 'STAFF_DEPARTMENTS_SELECTED_ROW';
-export const STAFF_DEPARTMENTS_TOGGLE_SIDEBAR = 'STAFF_DEPARTMENTS_TOGGLE_SIDEBAR';
-export const STAFF_DEPARTMENTS_TOGGLE_BAR = 'STAFF_DEPARTMENTS_TOGGLE_BAR';
-export const STAFF_DEPARTMENTS_QUICK_FILTER = 'STAFF_DEPARTMENTS_QUICK_FILTER';
+export const SD_SET_DEPARTMENTS = 'SD_SET_DEPARTMENTS';
+export const SD_SET_SELECTED_ROW = 'SD_SET_SELECTED_ROW';
+export const SD_TOGGLE_IS_SIDEBAR_OPENED = 'SD_TOGGLE_IS_SIDEBAR_OPENED';
+export const SD_TOGGLE_IS_FILTER_OPENED = 'SD_TOGGLE_IS_FILTER_OPENED';
+export const SD_TOGGLE_IS_QUICK_FILTER_ACTIVE = 'SD_TOGGLE_IS_QUICK_FILTER_ACTIVE';
+export const SD_TOGGLE_IS_DELETED_DISPLAYED = 'SD_TOGGLE_IS_DELETED_DISPLAYED';
 
-interface StaffDepartmentsSelectTableRow {
-    type: typeof STAFF_DEPARTMENTS_SELECTED_ROW;
-    payload: Department;
+interface SDSetDepartments {
+    type: typeof SD_SET_DEPARTMENTS;
+    payload: DepartmentsList;
 }
 
-interface StaffDepartmentsToggleSidebar {
-    type: typeof STAFF_DEPARTMENTS_TOGGLE_SIDEBAR;
+interface SDSetSelectedRow {
+    type: typeof SD_SET_SELECTED_ROW;
+    payload: Department | null;
 }
 
-interface StaffDepartmentsToggleBar {
-    type: typeof STAFF_DEPARTMENTS_TOGGLE_BAR;
+interface SDToggleIsSidebarOpened {
+    type: typeof SD_TOGGLE_IS_SIDEBAR_OPENED;
 }
 
-interface StaffDepartmentsToggleQuickFilter {
-    type: typeof STAFF_DEPARTMENTS_QUICK_FILTER;
+interface SDToggleIsFilterOpened {
+    type: typeof SD_TOGGLE_IS_FILTER_OPENED;
 }
 
-export type StaffDepartmentsActions =
-    | StaffDepartmentsSelectTableRow
-    | StaffDepartmentsToggleSidebar
-    | StaffDepartmentsToggleBar
-    | StaffDepartmentsToggleQuickFilter;
+interface SDToggleIsQuickFilterActive {
+    type: typeof SD_TOGGLE_IS_QUICK_FILTER_ACTIVE;
+}
+
+interface SDToggleIsDeletedDisplayed {
+    type: typeof SD_TOGGLE_IS_DELETED_DISPLAYED;
+}
+
+export type StaffDepartmentsPageActions =
+    | SDSetDepartments
+    | SDSetSelectedRow
+    | SDToggleIsSidebarOpened
+    | SDToggleIsFilterOpened
+    | SDToggleIsQuickFilterActive
+    | SDToggleIsDeletedDisplayed;

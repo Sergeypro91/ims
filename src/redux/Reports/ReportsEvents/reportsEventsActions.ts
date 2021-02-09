@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Dispatch } from 'react';
 import { ReportsEvents, ReportsEventsActions, GET_REPORTS_EVENTS } from './reportsEventsTypes';
-import config from '../../../config/config.json';
+import store from 'redux/store';
 
 const getReportsEvents = (eventsList: ReportsEvents): ReportsEventsActions => {
     return {
@@ -13,7 +13,9 @@ const getReportsEvents = (eventsList: ReportsEvents): ReportsEventsActions => {
 
 export const requestReportsEvents = () => async (dispatch: Dispatch<ReportsEventsActions>) => {
     try {
-        const res = await axios.get(`${config.apiUrl}monitoring/base/online?count=100`);
+        const res = await axios.get(
+            `${store.getState().app.config.apiUrl}monitoring/base/online?count=100`
+        );
         dispatch(getReportsEvents(res.data.list));
     } catch (e) {
         console.log(e.body);

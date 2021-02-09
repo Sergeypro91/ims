@@ -1,46 +1,61 @@
-import fakeData from 'App/components/pages/Staff/StaffPositions/fakeData';
 import {
-    StaffPositionsState,
-    StaffPositionsActions,
-    STAFF_POSITIONS_SELECTED_ROW,
-    STAFF_POSITIONS_TOGGLE_SIDEBAR,
-    STAFF_POSITIONS_TOGGLE_BAR,
-    STAFF_POSITIONS_QUICK_FILTER
+    StaffPositionsPageState,
+    StaffPositionsPageActions,
+    SP_SET_POSITIONS,
+    SP_SET_SELECTED_ROW,
+    SP_TOGGLE_IS_SIDEBAR_OPENED,
+    SP_TOGGLE_IS_FILTER_OPENED,
+    SP_TOGGLE_IS_QUICK_FILTER_ACTIVE,
+    SP_TOGGLE_IS_DELETED_DISPLAYED
 } from './staffPositionsTypes';
 
-const initialState: StaffPositionsState = {
-    positionsTable: fakeData,
+const initialState: StaffPositionsPageState = {
+    positions: [],
     selectedRow: null,
-    sidebarOpened: false,
-    toggleBar: false,
-    quickFilter: false
+    isSidebarOpened: false,
+    isFilterOpened: false,
+    isQuickFilterActive: false,
+    isDeletedDisplayed: false
 };
 
-const StaffPositionsReducer = (state = initialState, action: StaffPositionsActions): StaffPositionsState => {
+const staffPositionsPageReducer = (
+    state = initialState,
+    action: StaffPositionsPageActions
+): StaffPositionsPageState => {
     switch (action.type) {
-        case STAFF_POSITIONS_SELECTED_ROW:
+        case SP_SET_POSITIONS:
+            return {
+                ...state,
+                positions: action.payload
+            };
+        case SP_SET_SELECTED_ROW:
             return {
                 ...state,
                 selectedRow: action.payload
             };
-        case STAFF_POSITIONS_TOGGLE_SIDEBAR:
+        case SP_TOGGLE_IS_SIDEBAR_OPENED:
             return {
                 ...state,
-                sidebarOpened: !state.sidebarOpened
+                isSidebarOpened: !state.isSidebarOpened
             };
-        case STAFF_POSITIONS_TOGGLE_BAR:
+        case SP_TOGGLE_IS_FILTER_OPENED:
             return {
                 ...state,
-                toggleBar: !state.toggleBar
+                isFilterOpened: !state.isFilterOpened
             };
-        case STAFF_POSITIONS_QUICK_FILTER:
+        case SP_TOGGLE_IS_QUICK_FILTER_ACTIVE:
             return {
                 ...state,
-                quickFilter: !state.quickFilter
+                isQuickFilterActive: !state.isQuickFilterActive
+            };
+        case SP_TOGGLE_IS_DELETED_DISPLAYED:
+            return {
+                ...state,
+                isDeletedDisplayed: !state.isDeletedDisplayed
             };
         default:
             return state;
     }
 };
 
-export default StaffPositionsReducer;
+export default staffPositionsPageReducer;

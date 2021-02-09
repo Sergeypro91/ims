@@ -1,0 +1,10 @@
+{
+    "editor.fontLigatures": true,
+    "editor.tabSize": 4,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "eslint.alwaysShowStatus": true,
+    "javascript.preferences.importModuleSpecifier": "non-relative",
+    "files.eol": "\r\n"
+}

@@ -1,0 +1,19 @@
+@import '~assets/styles/utils/mixin';
+
+.module-setup {
+    display: flex;
+    flex-wrap: wrap;
+
+    & > * {
+        flex: 1 25%;
+        padding-right: 14px;
+    }
+
+    & > *:nth-child(4n) {
+        padding-right: 0;
+    }
+
+    & > *:nth-child(n + 5) {
+        padding-top: 14px;
+    }
+}

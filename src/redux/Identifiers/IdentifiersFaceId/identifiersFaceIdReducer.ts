@@ -4,14 +4,16 @@ import {
     GET_IDENTYFIERS_FACE_ID_EVENTS,
     IDENTYFIERS_FACE_ID_SELECTED_ROW,
     IDENTYFIERS_FACE_ID_TOGGLE_SIDEBAR,
-    IDENTYFIERS_FACE_ID_TOGGLE_BAR
+    IDENTYFIERS_FACE_ID_TOGGLE_BAR,
+    IDENTIFIER_PHOTO
 } from './identifiersFaceIdTypes';
 
 const initialState: IdentifiersFaceIdState = {
     events: [],
     selectedRow: null,
     sidebarOpened: false,
-    toggleBar: false
+    toggleBar: false,
+    photo: null
 };
 
 const IdentifiersFaceIdReducer = (state = initialState, action: IdentifiersFaceIdActions): IdentifiersFaceIdState => {
@@ -35,6 +37,11 @@ const IdentifiersFaceIdReducer = (state = initialState, action: IdentifiersFaceI
             return {
                 ...state,
                 toggleBar: !state.toggleBar
+            };
+        case IDENTIFIER_PHOTO:
+            return {
+                ...state,
+                photo: action.payload
             };
         default:
             return state;

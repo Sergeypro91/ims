@@ -1,0 +1,25 @@
+@import '~assets/styles/utils/mixin';
+
+.security-post-central {
+    .sidebar {
+        margin: 0;
+        border-top: none;
+        border-right: none;
+        border-bottom: none;
+
+        &__body {
+            min-width: 300px;
+            overflow: hidden;
+        }
+
+        &--opened {
+            min-width: 320px;
+            max-width: 320px;
+        }
+
+        &--closed {
+            min-width: 50px;
+            max-width: 50px;
+        }
+    }
+}

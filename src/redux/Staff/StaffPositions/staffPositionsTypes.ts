@@ -1,44 +1,51 @@
-export interface Position {
-    _id: string;
-    name: string;
-    count: number;
-    createdAt: string;
-    deleted: boolean;
-}
+import { Position, PositionsList } from 'api/staff/positions/positions.types';
 
-export type Positions = Array<Position>;
-export interface StaffPositionsState {
-    positionsTable: Positions;
+export interface StaffPositionsPageState {
+    positions: PositionsList;
     selectedRow: Position | null;
-    sidebarOpened: boolean;
-    toggleBar: boolean;
-    quickFilter: boolean;
+    isSidebarOpened: boolean;
+    isFilterOpened: boolean;
+    isQuickFilterActive: boolean;
+    isDeletedDisplayed: boolean;
 }
 
-export const STAFF_POSITIONS_SELECTED_ROW = 'STAFF_POSITIONS_SELECTED_ROW';
-export const STAFF_POSITIONS_TOGGLE_SIDEBAR = 'STAFF_POSITIONS_TOGGLE_SIDEBAR';
-export const STAFF_POSITIONS_TOGGLE_BAR = 'STAFF_POSITIONS_TOGGLE_BAR';
-export const STAFF_POSITIONS_QUICK_FILTER = 'STAFF_POSITIONS_QUICK_FILTER';
+export const SP_SET_POSITIONS = 'SP_SET_POSITIONS';
+export const SP_SET_SELECTED_ROW = 'SP_SET_SELECTED_ROW';
+export const SP_TOGGLE_IS_SIDEBAR_OPENED = 'SP_TOGGLE_IS_SIDEBAR_OPENED';
+export const SP_TOGGLE_IS_FILTER_OPENED = 'SP_TOGGLE_IS_FILTER_OPENED';
+export const SP_TOGGLE_IS_QUICK_FILTER_ACTIVE = 'SP_TOGGLE_IS_QUICK_FILTER_ACTIVE';
+export const SP_TOGGLE_IS_DELETED_DISPLAYED = 'SP_TOGGLE_IS_DELETED_DISPLAYED';
 
-interface StaffPositionsSelectTableRow {
-    type: typeof STAFF_POSITIONS_SELECTED_ROW;
-    payload: Position;
+interface SPSetPositions {
+    type: typeof SP_SET_POSITIONS;
+    payload: PositionsList;
 }
 
-interface StaffPositionsToggleSidebar {
-    type: typeof STAFF_POSITIONS_TOGGLE_SIDEBAR;
+interface SPSetSelectedRow {
+    type: typeof SP_SET_SELECTED_ROW;
+    payload: Position | null;
 }
 
-interface StaffPositionsToggleBar {
-    type: typeof STAFF_POSITIONS_TOGGLE_BAR;
+interface SPToggleIsSidebarOpened {
+    type: typeof SP_TOGGLE_IS_SIDEBAR_OPENED;
 }
 
-interface StaffPositionsToggleQuickFilter {
-    type: typeof STAFF_POSITIONS_QUICK_FILTER;
+interface SPToggleIsFilterOpened {
+    type: typeof SP_TOGGLE_IS_FILTER_OPENED;
 }
 
-export type StaffPositionsActions =
-    | StaffPositionsSelectTableRow
-    | StaffPositionsToggleSidebar
-    | StaffPositionsToggleBar
-    | StaffPositionsToggleQuickFilter;
+interface SPToggleIsQuickFilterActive {
+    type: typeof SP_TOGGLE_IS_QUICK_FILTER_ACTIVE;
+}
+
+interface SPToggleIsDeletedDisplayed {
+    type: typeof SP_TOGGLE_IS_DELETED_DISPLAYED;
+}
+
+export type StaffPositionsPageActions =
+    | SPSetPositions
+    | SPSetSelectedRow
+    | SPToggleIsSidebarOpened
+    | SPToggleIsFilterOpened
+    | SPToggleIsQuickFilterActive
+    | SPToggleIsDeletedDisplayed;

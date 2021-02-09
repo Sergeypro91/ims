@@ -1,6 +1,10 @@
 import { EventPayload } from 'redux/SecurityPost/SecurityPostCentral/securityPostCentralType';
 
 export interface AppState {
+    config: {
+        apiUrl: string;
+        apiWs: string;
+    };
     user: User;
     wsEvent: {
         status: number;
@@ -15,7 +19,6 @@ export interface AppState {
     bottombarOpened: boolean;
     toggleBar: boolean;
     windowSize: WindowSizeObj;
-    setupWizard: SetupWizard;
 }
 
 export interface User {
@@ -51,15 +54,13 @@ export interface WindowSizeObj {
     height: number;
 }
 
-export interface SetupWizard {
-    stepsCount: number;
-    currentStep: number;
-    marckerElemWidth: number;
-}
-
-export interface Toast {
+export interface IAddToast {
     type: string;
     message: string;
+}
+
+export interface Toast extends IAddToast {
+    id: string;
 }
 
 export const APP_USER = 'APP_USER';
@@ -77,10 +78,6 @@ export const APP_TOGGLE_SIDEBAR = 'APP_TOGGLE_SIDEBAR';
 export const APP_TOGGLE_BOTTOMBAR = 'APP_TOGGLE_BOTTOMBAR';
 export const APP_TOGGLE_BAR = 'APP_TOGGLE_BAR';
 export const APP_DETERM_WINDOW_SIZE = 'APP_DETERM_WINDOW_SIZE';
-export const APP_WIZARD_STEPS = 'APP_WIZARD_STEPS';
-export const APP_WIZARD_STEP = 'APP_WIZARD_STEP';
-export const APP_WIZARD_MARCKER_WIDTH = 'APP_WIZARD_MARCKER_WIDTH';
-export const APP_WIZARD_CLOSE = 'APP_WIZARD_CLOSE';
 
 interface AppUser {
     type: typeof APP_USER;
@@ -99,11 +96,12 @@ interface GetWsEvent {
 
 interface AppToastAdd {
     type: typeof APP_TOAST_ADD;
-    payload: Toast;
+    payload: IAddToast;
 }
 
 interface AppToastClear {
     type: typeof APP_TOAST_CLEAR;
+    payload: string;
 }
 
 interface AppSideNav {
@@ -145,25 +143,6 @@ interface AppWindowSize {
     payload: WindowSizeObj;
 }
 
-interface AppWizardStepsCount {
-    type: typeof APP_WIZARD_STEPS;
-    payload: number;
-}
-
-interface AppWizardCurrentStep {
-    type: typeof APP_WIZARD_STEP;
-    payload: number;
-}
-
-interface AppWizarMarckerElemWidth {
-    type: typeof APP_WIZARD_MARCKER_WIDTH;
-    payload: number;
-}
-
-interface AppWizardClose {
-    type: typeof APP_WIZARD_CLOSE;
-}
-
 export type AppActions =
     | AppUser
     | SetWsStatus
@@ -178,8 +157,4 @@ export type AppActions =
     | AppToggleSidebar
     | AppToggleBottombar
     | AppToggleBar
-    | AppWindowSize
-    | AppWizardStepsCount
-    | AppWizardCurrentStep
-    | AppWizarMarckerElemWidth
-    | AppWizardClose;
+    | AppWindowSize;

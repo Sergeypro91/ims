@@ -2,11 +2,13 @@ import { combineReducers } from 'redux';
 import IdentifiersFaceIdReducer from 'redux/Identifiers/IdentifiersFaceId/identifiersFaceIdReducer';
 import IdentifiersQrReducer from 'redux/Identifiers/IdentifiersQr/identifiersQrReducer';
 import IdentifiersRfidReducer from 'redux/Identifiers/IdentifiersRfid/identifiersRfidReducer';
+import IdentifiersGeneralReducer from 'redux/Identifiers/IdentifiersGeneral/IdentifiersGeneralReduce';
 
-const SecurityPost = combineReducers({
+const Identifiers = combineReducers({
     identifiersFaceId: IdentifiersFaceIdReducer,
     identifiersQr: IdentifiersQrReducer,
-    identifiersRfid: IdentifiersRfidReducer
+    identifiersRfid: IdentifiersRfidReducer,
+    identifiersGeneral: IdentifiersGeneralReducer
 });
 
-export default SecurityPost;
+export default Identifiers;

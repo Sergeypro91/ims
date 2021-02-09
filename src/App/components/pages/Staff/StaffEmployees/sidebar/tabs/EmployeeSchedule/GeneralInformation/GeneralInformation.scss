@@ -1,9 +1,0 @@
-@import '../../../../../../../../../assets/styles/utils/mixin';
-
-.employee-tab {
-    &__general-schedule {
-        &>*:nth-child(n):not(:last-child):not(:only-child) {
-            margin-bottom: calc(#{$indent-md} * 2);
-        }
-    }
-}

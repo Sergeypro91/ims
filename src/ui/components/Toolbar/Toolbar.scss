@@ -1,0 +1,17 @@
+@import '~assets/styles/utils/mixin';
+
+.toolbar {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 7px;
+    @each $theme, $map in $themes {
+        .#{$theme} & {
+            background: map-get($map, borderColor);
+        }
+    }
+
+    & > *:nth-child(n) {
+        margin-right: 7px;
+    }
+}

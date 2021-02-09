@@ -1,18 +1,19 @@
 import { Dispatch } from 'react';
-import config from 'config/config.json';
+import store from 'redux/store';
 import { requestDevices } from 'redux/SecurityPost/SecurityPostCentral/securityPostCentralAction';
-import {SecurityPostCentralActions} from 'redux/SecurityPost/SecurityPostCentral/securityPostCentralType';
+import { identifiersRfidKey } from 'redux/Identifiers/IdentifiersRfid/identifiersRfidActions';
+import { SecurityPostCentralActions } from 'redux/SecurityPost/SecurityPostCentral/securityPostCentralType';
+import { IdentifiersRfidActions } from 'redux/Identifiers/IdentifiersRfid/identifiersRfidTypes';
 import {
     User,
     Event,
     AppActions,
     SideNavMenu,
     WindowSizeObj,
-    Toast,
+    IAddToast,
     APP_USER,
     GET_WS_EVENT,
     APP_TOAST_ADD,
-    APP_TOAST_CLEAR,
     GET_SIDE_NAV_MENU,
     THEME,
     APP_HIDE_PROGRESS_BAR,
@@ -22,11 +23,8 @@ import {
     APP_TOGGLE_BOTTOMBAR,
     APP_TOGGLE_BAR,
     APP_DETERM_WINDOW_SIZE,
-    APP_WIZARD_STEP,
-    APP_WIZARD_STEPS,
-    APP_WIZARD_MARCKER_WIDTH,
-    APP_WIZARD_CLOSE,
-    SET_WS_STATUS
+    SET_WS_STATUS,
+    APP_TOAST_CLEAR
 } from './appTypes';
 import menuData from './sideNavMenu.json';
 
@@ -47,13 +45,14 @@ export const getWsEvent = (event: null | Event): AppActions => ({
     payload: event
 });
 
-export const appToastAdd = (payload: Toast): AppActions => ({
+export const appToastAdd = (payload: IAddToast): AppActions => ({
     type: APP_TOAST_ADD,
     payload
 });
 
-export const appToastClear = (): AppActions => ({
-    type: APP_TOAST_CLEAR
+export const appToastClear = (payload: string): AppActions => ({
+    type: APP_TOAST_CLEAR,
+    payload
 });
 
 export const getSideNavMenu = (sideNavMenu: SideNavMenu): AppActions => ({
@@ -101,36 +100,13 @@ export const appWindowSize = (payload: WindowSizeObj): AppActions => ({
     payload
 });
 
-export const appWizardCurrentStep = (payload: number): AppActions => {
-    return {
-        type: APP_WIZARD_STEP,
-        payload
-    };
-};
-
-export const appWizardStepsCount = (payload: number): AppActions => {
-    return {
-        type: APP_WIZARD_STEPS,
-        payload
-    };
-};
-
-export const appWizardMarckerWidth = (payload: number): AppActions => {
-    return {
-        type: APP_WIZARD_MARCKER_WIDTH,
-        payload
-    };
-};
-
-export const appWizardClose = (): AppActions => ({
-    type: APP_WIZARD_CLOSE
-});
-
-export const requestEvent = () => (dispatch: Dispatch<AppActions | SecurityPostCentralActions | Dispatch<any>>) => {
+export const requestEvent = () => (
+    dispatch: Dispatch<AppActions | SecurityPostCentralActions | IdentifiersRfidActions | Dispatch<any>>
+) => {
     let ws: WebSocket;
 
     const connectToEvent = () => {
-        ws = new WebSocket(`${config.ws}`);
+        ws = new WebSocket(`${store.getState().app.config.apiWs}`);
 
         ws.onopen = () => {
             console.log('WebSocket Client Connected');
@@ -140,20 +116,24 @@ export const requestEvent = () => (dispatch: Dispatch<AppActions | SecurityPostC
         };
 
         ws.onmessage = (event: MessageEvent) => {
-            const timeEvent: Event = JSON.parse(event.data);
+            const timeEvent = JSON.parse(event.data);
             let timeoutForEvent: null | number = null;
 
             console.log(timeEvent);
 
-            dispatch(getWsEvent(timeEvent));
+            if (timeEvent.code === 10003) {
+                dispatch(identifiersRfidKey(timeEvent.payload));
+            } else {
+                dispatch(getWsEvent(timeEvent));
 
-            if (timeoutForEvent) {
-                clearTimeout(timeoutForEvent);
+                if (timeoutForEvent) {
+                    clearTimeout(timeoutForEvent);
+                }
+
+                timeoutForEvent = window.setTimeout(() => {
+                    dispatch(getWsEvent(null));
+                }, 100);
             }
-
-            timeoutForEvent = setTimeout(() => {
-                dispatch(getWsEvent(null));
-            }, 100);
         };
 
         ws.onclose = () => {
@@ -172,7 +152,7 @@ export const requestEvent = () => (dispatch: Dispatch<AppActions | SecurityPostC
             }
 
             if (ws.readyState !== 1) {
-                timeoutForReconnect = setTimeout(() => {
+                timeoutForReconnect = window.setTimeout(() => {
                     console.log('Try to reconnect');
 
                     connectToEvent();

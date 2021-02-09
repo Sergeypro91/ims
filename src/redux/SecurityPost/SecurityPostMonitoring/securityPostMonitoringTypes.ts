@@ -8,17 +8,27 @@ export interface SecurityPostMonitoringState {
 export type MonitoringEvents = Array<TableItem>;
 
 export interface TableItem {
-    id: number;
-    data: string;
-    validFrom?: string;
-    validTo?: string;
-    passCount?: number;
-    type: number;
-    status: number;
-    identificatorClass: number;
-    deleted: boolean;
-    personId: string;
-    personName: string;
+    eventUUID: string;
+    deviceUUID: string;
+    deviceName: string;
+    sensorUUID: string;
+    personUUID: string;
+    personLastName: string;
+    personFirstName: string;
+    personMiddleName: string;
+    photo: string;
+    identificatorUUID: string;
+    identificatorContent: string;
+    codeChar: string;
+    codeName: string;
+    classId: string;
+    className: string;
+    description: string;
+    date: string;
+    directionStr: string;
+    inZoneName: string;
+    outZoneName: string;
+    categoryId: number;
 }
 
 export const GET_SECURITY_POST_MONITORING_EVENTS = 'GET_SECURITY_POST_MONITORING_EVENTS';

@@ -5,7 +5,8 @@ import {
     IDENTYFIERS_QR_SELECTED_ROW,
     IDENTIFIERS_QR_TOGGLE_SIDEBAR,
     IDENTIFIERS_QR_TOGGLE_BAR,
-    IDENTYFIERS_QR_SIDE_FILTER
+    IDENTYFIERS_QR_SIDE_FILTER,
+    IDENTIFIERS_QR_CODE
 } from './identifiersQrTypes';
 
 const initialState: IdentifiersQrState = {
@@ -13,7 +14,8 @@ const initialState: IdentifiersQrState = {
     selectedRow: null,
     sidebarOpened: false,
     toggleBar: false,
-    sideFilter: false
+    sideFilter: false,
+    qr: null
 };
 
 const IdentifiersQrReducer = (
@@ -45,6 +47,11 @@ const IdentifiersQrReducer = (
             return {
                 ...state,
                 sideFilter: !state.sideFilter
+            };
+        case IDENTIFIERS_QR_CODE:
+            return {
+                ...state,
+                qr: action.payload
             };
         default:
             return state;

@@ -1,0 +1,108 @@
+@import '~assets/styles/utils/mixin';
+
+.access-points-setup {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    & > *:nth-child(n):not(:last-child):not(:only-child) {
+        margin-bottom: calc(#{$indent-md} * 2);
+    }
+
+    &__title {
+    }
+
+    &__body {
+        flex: 1 100%;
+        display: flex;
+
+        & > *:nth-child(n):not(:last-child):not(:only-child) {
+            margin-right: calc(#{$indent-md} * 2);
+        }
+
+        .device__setup {
+            flex: 1 100%;
+            display: flex;
+            flex-direction: column;
+
+            & > *:nth-child(n):not(:last-child):not(:only-child) {
+                margin-bottom: calc(#{$indent-md} * 2);
+            }
+
+            .device-settings__header {
+                flex: 1 100%;
+                display: flex;
+
+                & > *:nth-child(n):not(:last-child):not(:only-child) {
+                    margin-right: $indent-md;
+                }
+                
+                &>*:first-child {
+                    min-width: 290px;
+                }
+            }
+
+            .device-settings__body {
+                display: flex;
+                flex-direction: column;
+
+                & > *:nth-child(n):not(:last-child):not(:only-child) {
+                    margin-bottom: $indent-md;
+                }
+
+                &-top, &-bottom {
+                    display: flex;
+
+                    & > *:nth-child(n):not(:last-child):not(:only-child) {
+                        margin-right: $indent-md;
+                    }
+                }
+
+                &-top {
+                    &>*:first-child {
+                        min-width: 290px;
+                    }
+                }
+
+                .port-settings {
+                    display: flex;
+                    align-items: flex-end;
+
+                    & > *:nth-child(n):not(:last-child):not(:only-child) {
+                        margin-right: $indent-md;
+                    }
+
+                    .custom-button {
+                        svg {
+                            transition: $transition;
+
+                            @each $theme, $map in $themes {
+                                .#{$theme} & {
+                                    background: map-get($map, brandBackground);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .device-settings__footer {
+                display: flex;
+
+                .custom-button {
+                    min-width: 200px;
+                }
+            }
+        }
+
+        .device__info {
+            min-width: 220px;
+            padding-left: calc(#{$indent-md} * 2);
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    border-left: 2px solid map-get($map, borderColor);
+                }
+            }
+        }
+    }
+}

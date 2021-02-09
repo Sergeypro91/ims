@@ -105,7 +105,7 @@ interface SecurityPostCentralGetDevices {
 
 interface SecurityPostCentralSelectDevice {
     type: typeof SECURITY_POST_CENTRAL_SELECT_DEVICE;
-    payload: Device;
+    payload: number | string;
 }
 
 interface SecurityPostCentralClearDevices {

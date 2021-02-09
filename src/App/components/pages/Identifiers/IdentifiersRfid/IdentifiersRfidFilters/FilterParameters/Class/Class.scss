@@ -1,7 +1,0 @@
-@import '../../../../../../../../assets/styles/utils/mixin';
-
-.identifiers-rfid-filters-class {
-    &>*:not(:last-child):not(:only-child) {
-        margin-bottom: $indent-md;
-    }
-}

@@ -1,46 +1,61 @@
-import data from 'App/components/pages/Staff/StaffDepartments/fakeData';
 import {
-    StaffDepartmentsState,
-    StaffDepartmentsActions,
-    STAFF_DEPARTMENTS_SELECTED_ROW,
-    STAFF_DEPARTMENTS_TOGGLE_SIDEBAR,
-    STAFF_DEPARTMENTS_TOGGLE_BAR,
-    STAFF_DEPARTMENTS_QUICK_FILTER
+    StaffDepartmentsPageState,
+    StaffDepartmentsPageActions,
+    SD_SET_DEPARTMENTS,
+    SD_SET_SELECTED_ROW,
+    SD_TOGGLE_IS_SIDEBAR_OPENED,
+    SD_TOGGLE_IS_FILTER_OPENED,
+    SD_TOGGLE_IS_QUICK_FILTER_ACTIVE,
+    SD_TOGGLE_IS_DELETED_DISPLAYED
 } from './staffDepartmentsTypes';
 
-const initialState: StaffDepartmentsState = {
-    departmentsTable: data,
+const initialState: StaffDepartmentsPageState = {
+    departments: [],
     selectedRow: null,
-    sidebarOpened: false,
-    toggleBar: false,
-    quickFilter: false
+    isSidebarOpened: false,
+    isFilterOpened: false,
+    isQuickFilterActive: false,
+    isDeletedDisplayed: false
 };
 
-const StaffDepartments = (state = initialState, action: StaffDepartmentsActions): StaffDepartmentsState => {
+const staffDepartmentsPageReducer = (
+    state = initialState,
+    action: StaffDepartmentsPageActions
+): StaffDepartmentsPageState => {
     switch (action.type) {
-        case STAFF_DEPARTMENTS_SELECTED_ROW:
+        case SD_SET_DEPARTMENTS:
+            return {
+                ...state,
+                departments: action.payload
+            };
+        case SD_SET_SELECTED_ROW:
             return {
                 ...state,
                 selectedRow: action.payload
             };
-        case STAFF_DEPARTMENTS_TOGGLE_SIDEBAR:
+        case SD_TOGGLE_IS_SIDEBAR_OPENED:
             return {
                 ...state,
-                sidebarOpened: !state.sidebarOpened
+                isSidebarOpened: !state.isSidebarOpened
             };
-        case STAFF_DEPARTMENTS_TOGGLE_BAR:
+        case SD_TOGGLE_IS_FILTER_OPENED:
             return {
                 ...state,
-                toggleBar: !state.toggleBar
+                isFilterOpened: !state.isFilterOpened
             };
-        case STAFF_DEPARTMENTS_QUICK_FILTER:
+        case SD_TOGGLE_IS_QUICK_FILTER_ACTIVE:
             return {
                 ...state,
-                quickFilter: !state.quickFilter
+                isQuickFilterActive: !state.isQuickFilterActive
+            };
+        case SD_TOGGLE_IS_DELETED_DISPLAYED:
+            return {
+                ...state,
+                isDeletedDisplayed: !state.isDeletedDisplayed
             };
         default:
             return state;
     }
 };
 
-export default StaffDepartments;
+export default staffDepartmentsPageReducer;

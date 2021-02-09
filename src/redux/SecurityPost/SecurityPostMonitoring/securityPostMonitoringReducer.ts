@@ -20,9 +20,32 @@ const SecurityPostMonitoringReducer = (
 ): SecurityPostMonitoringState => {
     switch (action.type) {
         case GET_SECURITY_POST_MONITORING_EVENTS:
+            const rebuildEventsArr = action.payload;
+
+            rebuildEventsArr.map((elem) => {
+                const newDate = new Date(elem.date)
+
+                const timeStampCon = 
+                    `${newDate.getHours()}:${
+                    (newDate.getMinutes() < 10 ? '0' : '') + newDate.getMinutes()} / ${
+                    newDate.getDate()}.${
+                    newDate.getMonth() + 1}.${
+                    newDate.getFullYear()}`;
+
+                return elem.date = `${timeStampCon}`;
+            });
+
+            rebuildEventsArr.map((elem) => {
+                if (elem.personLastName === 'Не определено') {
+                    return elem.personLastName = 'Не определено'
+                }
+
+                return elem.personLastName = `${elem.personLastName} ${elem.personFirstName} ${elem.personMiddleName}`
+            });
+
             return {
                 ...state,
-                events: action.payload
+                events: rebuildEventsArr
             };
         case SECURITY_POST_MONITORING_TABLE_ROW:
             return {

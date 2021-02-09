@@ -14,6 +14,7 @@ export interface IdentifiersQrState {
     sidebarOpened: boolean;
     toggleBar: boolean;
     sideFilter: boolean;
+    qr: string | ArrayBuffer | null;
 }
 
 export const GET_IDENTYFIERS_QR_EVENTS = 'GET_IDENTYFIERS_QR_EVENTS';
@@ -21,6 +22,7 @@ export const IDENTYFIERS_QR_SELECTED_ROW = 'IDENTYFIERS_QR_SELECTED_ROW';
 export const IDENTIFIERS_QR_TOGGLE_SIDEBAR = 'IDENTIFIERS_QR_TOGGLE_SIDEBAR';
 export const IDENTIFIERS_QR_TOGGLE_BAR = 'IDENTIFIERS_QR_TOGGLE_BAR';
 export const IDENTYFIERS_QR_SIDE_FILTER = 'IDENTYFIERS_QR_SIDE_FILTER';
+export const IDENTIFIERS_QR_CODE = 'IDENTIFIERS_QR_CODE';
 
 interface IdentifiersQrData {
     type: typeof GET_IDENTYFIERS_QR_EVENTS;
@@ -44,9 +46,15 @@ interface IdentifiersQrToggleSideFilter {
     type: typeof IDENTYFIERS_QR_SIDE_FILTER;
 }
 
+interface IdentifiersQrCode {
+    type: typeof IDENTIFIERS_QR_CODE;
+    payload: string | ArrayBuffer | null;
+}
+
 export type IdentifiersQrActions =
     | IdentifiersQrData
     | IdentifiersQrSelectTableRow
     | IdentifiersQrToggleSidebar
     | IdentifiersQrToggleBar
-    | IdentifiersQrToggleSideFilter;
+    | IdentifiersQrToggleSideFilter
+    | IdentifiersQrCode;

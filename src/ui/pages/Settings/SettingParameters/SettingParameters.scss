@@ -1,0 +1,151 @@
+@import '~assets/styles/utils/mixin';
+
+.setting-parameters {
+    width: 100%;
+    display: flex;
+    z-index: 1;
+
+    &__menu {
+        min-width: 300px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        @each $theme, $map in $themes {
+            .#{$theme} & {
+                border-right: 1px solid map-get($map, borderColor);
+            }
+        }
+
+        .parameters-menu__header {
+            padding: $indent-lg;
+            @each $theme, $map in $themes {
+                .#{$theme} & {
+                    border-bottom: 1px solid map-get($map, borderColor);
+                }
+            }
+        }
+
+        .parameters-menu__body {
+            flex: 1 100%;
+            padding: $indent-lg;
+            overflow: hidden;
+
+            .parameters-menu__content {
+                & > *:not(:last-child):not(:only-child) {
+                    margin-bottom: $indent-sm;
+                }
+
+                .parameters-menu__item {
+                    height: 42px;
+                    display: flex;
+                    align-items: center;
+                    border-radius: 5px;
+                    transition: $transition;
+                    cursor: pointer;
+
+                    &:hover {
+                        @each $theme, $map in $themes {
+                            .#{$theme} & {
+                                background: transparentize(map-get($map, brandPantonBlue), 0.5);
+                                box-shadow: 0 10px 10px 0 transparentize(map-get($map, black), 0.9);
+                            }
+                        }
+
+                        & > * {
+                            @each $theme, $map in $themes {
+                                .#{$theme} & {
+                                    color: map-get($map, white);
+                                }
+                            }
+                        }
+                    }
+
+                    &::before {
+                        content: '';
+                        width: 6px;
+                        height: 6px;
+                        display: flex;
+                        margin: 4px;
+                        border-radius: 50%;
+                        @each $theme, $map in $themes {
+                            .#{$theme} & {
+                                background: transparentize(map-get($map, brandPantonBlue), 0.3);
+                            }
+                        }
+                    }
+
+                    &--active {
+                        @each $theme, $map in $themes {
+                            .#{$theme} & {
+                                background: map-get($map, brandPantonBlue);
+                            }
+                        }
+
+                        & > * {
+                            @each $theme, $map in $themes {
+                                .#{$theme} & {
+                                    color: map-get($map, white);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &__options {
+        flex: 1 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 35px;
+
+        & > *:not(:last-child):not(:only-child) {
+            margin-bottom: $indent-lg;
+        }
+
+        .parameters-options {
+            &__elem {
+                width: 400px;
+
+                &--checkbox-list {
+                    .option-elem {
+                        &__label {
+                            margin-bottom: $indent-md;
+
+                            & > * {
+                                @each $theme, $map in $themes {
+                                    .#{$theme} & {
+                                        color: map-get($map, brandPantonSubText) !important;
+                                    }
+                                }
+                            }
+                        }
+
+                        &__list {
+                            & > *:not(:last-child):not(:only-child) {
+                                margin-bottom: $indent-sm;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &__body {
+                flex: 1 100%;
+                & > *:not(:last-child):not(:only-child) {
+                    margin-bottom: $indent-lg;
+                }
+            }
+
+            &__footer {
+                display: flex;
+
+                & > *:not(:last-child):not(:only-child) {
+                    margin-right: $indent-md;
+                }
+            }
+        }
+    }
+}

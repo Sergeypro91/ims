@@ -1,9 +1,0 @@
-@import "../../../../../../../assets/styles/utils/mixin";
-
-.identifiersr-face-id-general {
-    padding: $indent-lg $indent-md;
-
-    &>*:nth-child(n):not(:last-child):not(:only-child) {
-        margin-bottom: calc(#{$indent-md} * 2);
-    }
-}

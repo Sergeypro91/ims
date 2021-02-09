@@ -2,32 +2,27 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './rootReducer';
 
-const saveToLocalStorage = (state: any) => {
-    try {
-        const serializedState = JSON.stringify(state);
-
-        localStorage.setItem('state', serializedState);
-    } catch (e) {
-        console.log(e);
-    }
-};
-
-const loadFromLocalStorage = () => {
-    try {
-        const serializedState = localStorage.getItem('state');
-
-        if (serializedState === null) return undefined;
-
-        return JSON.parse(serializedState);
-    } catch (e) {
-        console.log(e);
-
-        return undefined;
-    }
-};
-
-const persistedState = loadFromLocalStorage();
 const middleware = [thunk];
+
+const saveStateToLocalStorage = (state: State) => {
+    localStorage.setItem('reduxState', JSON.stringify(state));
+};
+
+const loadStateFromLocalStorage = () => {
+    const state = localStorage.getItem('reduxState');
+
+    if (state) {
+        const jsonState = JSON.parse(state);
+
+        if (jsonState) {
+            return jsonState;
+        }
+    }
+
+    return undefined;
+};
+
+console.log(loadStateFromLocalStorage());
 
 declare global {
     interface Window {
@@ -37,9 +32,13 @@ declare global {
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
+const persistedState = loadStateFromLocalStorage();
+
 const store = createStore(rootReducer, persistedState, compose(applyMiddleware(...middleware), composeEnhancers()));
 
-store.subscribe(() => saveToLocalStorage(store.getState()));
+store.subscribe(() => {
+    saveStateToLocalStorage(store.getState());
+});
 
 export type State = ReturnType<typeof rootReducer>;
 

@@ -1,42 +1,54 @@
-import fakeData from 'App/components/pages/Staff/StaffOrganizations/fakeData';
 import {
-    StaffOrganizationsState,
-    StaffOrganizationsActions,
-    STAFF_ORGANIZATIONS_SELECTED_ROW,
-    STAFF_ORGANIZATIONS_TOGGLE_SIDEBAR,
-    STAFF_ORGANIZATIONS_TOGGLE_BAR
+    StaffOrganizationsPageState,
+    StaffOrganizationsPageActions,
+    SO_SET_ORGANIZATIONS,
+    SO_SET_SELECTED_ROW,
+    SO_TOGGLE_IS_SIDEBAR_OPENED,
+    SO_TOGGLE_IS_QUICK_FILTER_ACTIVE,
+    SO_TOGGLE_IS_DELETED_DISPLAYED
 } from './staffOrganizationsTypes';
 
-const initialState: StaffOrganizationsState = {
-    organizationsTable: fakeData,
+const initialState: StaffOrganizationsPageState = {
+    organizations: [],
     selectedRow: null,
-    sidebarOpened: false,
-    toggleBar: false
+    isSidebarOpened: false,
+    isQuickFilterActive: false,
+    isDeletedDisplayed: false
 };
 
-const StaffOrganizationsReducer = (
+const staffOrganizationsPageReducer = (
     state = initialState,
-    action: StaffOrganizationsActions
-): StaffOrganizationsState => {
+    action: StaffOrganizationsPageActions
+): StaffOrganizationsPageState => {
     switch (action.type) {
-        case STAFF_ORGANIZATIONS_SELECTED_ROW:
+        case SO_SET_ORGANIZATIONS:
+            return {
+                ...state,
+                organizations: action.payload
+            };
+        case SO_SET_SELECTED_ROW:
             return {
                 ...state,
                 selectedRow: action.payload
             };
-        case STAFF_ORGANIZATIONS_TOGGLE_SIDEBAR:
+        case SO_TOGGLE_IS_SIDEBAR_OPENED:
             return {
                 ...state,
-                sidebarOpened: !state.sidebarOpened
+                isSidebarOpened: !state.isSidebarOpened
             };
-        case STAFF_ORGANIZATIONS_TOGGLE_BAR:
+        case SO_TOGGLE_IS_QUICK_FILTER_ACTIVE:
             return {
                 ...state,
-                toggleBar: !state.toggleBar
+                isQuickFilterActive: !state.isQuickFilterActive
+            };
+        case SO_TOGGLE_IS_DELETED_DISPLAYED:
+            return {
+                ...state,
+                isDeletedDisplayed: !state.isDeletedDisplayed
             };
         default:
             return state;
     }
 };
 
-export default StaffOrganizationsReducer;
+export default staffOrganizationsPageReducer;

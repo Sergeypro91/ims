@@ -1,6 +1,0 @@
-{
-    "baseURL": "15355",
-    "defaultTitle": "| v1.0.0.5",
-    "apiUrl": "https://test.carddex.ru/api",
-    "testApi": "http://172.16.3.74:9998/api"
-}
